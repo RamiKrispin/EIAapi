@@ -15,4 +15,5 @@ RoxygenNote: 7.2.1
 Suggests:
   data.table (>= 1.14.2)
 SystemRequirements: The package required the jq command line library. Please check https://stedolan.github.io/jq/download/ for download instructions.
-
+URL: https://github.com/RamiKrispin/EIAapi
+BugReports: https://github.com/RamiKrispin/EIAapi/issues
