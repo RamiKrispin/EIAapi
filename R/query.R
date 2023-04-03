@@ -28,7 +28,7 @@
 #' @export
 #' @examples
 #'\dontrun{
-#'# Required an key for the EIA API
+#'# Required an EIA API key to send a query
 #' api_key <- "YOUR_API_KEY"
 #'
 #' df <- eia_get(
