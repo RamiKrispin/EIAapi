@@ -58,3 +58,15 @@ data.table/data.frame object
 \description{
 Function to query and extract data from the EIA API v2
 }
+\examples{
+\dontrun{
+# Required an key for the EIA API
+api_key <- "YOUR_API_KEY"
+
+df <- eia_get(
+  api_key = api_key,
+  api_url = "https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/",
+  data = "value"
+)
+}
+}
