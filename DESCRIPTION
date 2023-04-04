@@ -1,13 +1,13 @@
 Package: EIAapi
 Type: Package
-Title: Functions for Query Data from the EIA API
+Title: Query Data from the EIA API
 Version: 0.1.0
 Authors@R: person(given = "Rami", 
                     family ="Krispin", 
                     email = "rami.krispin@gmail.com",
                     role = c("aut", "cre"))
 Maintainer: Rami Krispin <rami.krispin@gmail.com>
-Description: Provides functions to query data from the EIA API.
+Description: Provides a function to query and extract data from the 'US Energy Information Administration' ('EIA') API V2  <https://www.eia.gov/opendata/>. The 'EIA' API provides a variety of information, in a time series format, about the energy sector in the US. The API is open, free, and requires an access key and registration at <https://www.eia.gov/opendata/>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
