@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/EIAapu)](https://cran.r-project.org/package=EIAapi)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/EIAapi)](https://cran.r-project.org/package=EIAapi)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit/)
@@ -28,8 +28,14 @@ following:
 
 ## Installation
 
-Currently, the package is under development and not available on CRAN.
-You can install the experiment version from Github:
+Install the stable version from \[CRAN\]:
+
+``` r
+install.packages("EIAapi")
+```
+
+Or, install the development version from
+[Github](https://github.com/RamiKrispin/EIAapi):
 
 ``` r
 # install.packages("devtools")
