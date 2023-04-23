@@ -6,7 +6,7 @@
 \usage{
 eia_get(
   api_key,
-  api_url,
+  api_path,
   data = "value",
   facets = NULL,
   start = NULL,
@@ -20,7 +20,8 @@ eia_get(
 \arguments{
 \item{api_key}{A string, EIA API key, see https://www.eia.gov/opendata/ for registration to the API service}
 
-\item{api_url}{A string, the API URL, can be found on the EIA API dashboard, for more details see https://www.eia.gov/opendata/browser/}
+\item{api_path}{A string, the API path to follow the API endpoint https://api.eia.gov/v2/.
+The path can be found on the EIA API dashboard, for more details see https://www.eia.gov/opendata/browser/}
 
 \item{data}{A string, the metric type, by default uses 'value' (defined as
 'data' on the API header)}
@@ -65,7 +66,7 @@ api_key <- "YOUR_API_KEY"
 
 df <- eia_get(
   api_key = api_key,
-  api_url = "https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/",
+  api_path = "electricity/rto/fuel-type-data/data/",
   data = "value"
 )
 }
