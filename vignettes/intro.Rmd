@@ -187,3 +187,10 @@ elec_sub_route <- eia_metadata(api_path = "electricity/rto/region-sub-ba-data/",
 elec_sub_route 
 ```
 
+You can continue and query additional information on this series. For example, let's extract the list of balancing authorities that are available for this series under the `parent` facet:
+
+```{r}
+ eia_metadata(api_path = "electricity/rto/region-sub-ba-data/facet/parent",
+                               api_key = Sys.getenv("eia_key"))
+```
+
