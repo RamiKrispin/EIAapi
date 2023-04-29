@@ -162,7 +162,7 @@ eia_get <- function(api_key,
 
   if(is.null(df)){
     stop(paste("Could not pull the data... \033[0;92m\xE2\x9D\x8C\033[0m\n",
-               "Check the query parameters (e.g., api key, path, etc.)\n", sep = ""))
+               "Check the query parameters (e.g., api key, path, etc.) or the error log\n", sep = ""))
   }
   if(format == "data.frame"){
     df <- as.data.frame(df)
