@@ -12,11 +12,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
-imports:
-  jsonlite(>= 1.8.2),
-   data.table (>= 1.14.2)
+Imports:
+  jsonlite (>= 1.8.2),
+  data.table (>= 1.14.2)
 Suggests:
-  plotly (>= 4.10.0)
+    knitr,
+    plotly (>= 4.10.0),
+    rmarkdown
 SystemRequirements: The package required the jq command line library. Please check https://stedolan.github.io/jq/download/ for download instructions.
 URL: https://github.com/RamiKrispin/EIAapi
 BugReports: https://github.com/RamiKrispin/EIAapi/issues
+VignetteBuilder: knitr
