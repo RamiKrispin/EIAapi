@@ -2,6 +2,7 @@
 
 * Modified the `eia_get` function argument - rename the `api_url` argument to `api_path`, and dropping the end-point (`https://api.eia.gov/v2/`) from the query
 * Added new function - `eia_metadata` to query metadata information from the API
+* Added new vignettes - introduction the EIA API
 
 # EIAapi 0.1.0
 
