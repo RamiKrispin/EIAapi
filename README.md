@@ -11,8 +11,8 @@
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit/)
 <!-- badges: end -->
 
-The **EIAapi** package provides a function to query data from the [EIA
-API v2](https://www.eia.gov/opendata/).
+The **EIAapi** package provides functions to query and pull tidy data
+from [EIA API v2](https://www.eia.gov/opendata/).
 
 ## Requirments
 
@@ -25,6 +25,9 @@ following:
     page](https://stedolan.github.io/jq/download/).
 -   API key - To query the EIA API, you will need to register to the
     service to receive the API key.
+
+To register to to the API go to <https://www.eia.gov/opendata/> and
+click the `Register` button, and follow the instruction.
 
 ## Installation
 
@@ -39,7 +42,7 @@ Or, install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("RamiKrispin/tsafr/R/EIAapi")
+devtools::install_github("RamiKrispin/EIAapi")
 ```
 
 ## Query data
