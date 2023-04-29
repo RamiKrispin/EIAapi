@@ -29,6 +29,8 @@ MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/
 The **EIAapi** package provides functions to query and pull tidy data from [EIA API
 v2](https://www.eia.gov/opendata/).
 
+Introduction to the EIAapi package available [here](https://ramikrispin.github.io/EIAapi/docs/articles/intro.html).
+
 ## Requirments
 
 To pull data from the API using this package, you will need the following:
