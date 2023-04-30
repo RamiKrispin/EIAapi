@@ -22,4 +22,3 @@ Suggests:
 SystemRequirements: The package required the jq command line library. Please check https://stedolan.github.io/jq/download/ for download instructions.
 URL: https://github.com/RamiKrispin/EIAapi
 BugReports: https://github.com/RamiKrispin/EIAapi/issues
-VignetteBuilder: knitr
