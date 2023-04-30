@@ -4,6 +4,6 @@
 ^LICENSE\.md$
 docs
 ^CRAN-RELEASE$
-^vignettes$
+vignettes
 ^vignettes/*.Rmd$
 ^vignettes/images/*.png$

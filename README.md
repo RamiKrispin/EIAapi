@@ -15,7 +15,7 @@ The **EIAapi** package provides functions to query and pull tidy data
 from [EIA API v2](https://www.eia.gov/opendata/).
 
 Introduction to the EIAapi package available
-[here](https://ramikrispin.github.io/EIAapi/docs/articles/intro.html).
+[here](https://ramikrispin.github.io/EIAapi/articles/intro.html).
 
 ## Requirments
 
