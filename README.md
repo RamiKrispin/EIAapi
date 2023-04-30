@@ -11,8 +11,11 @@
 MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit/)
 <!-- badges: end -->
 
-The **EIAapi** package provides a function to query data from the [EIA
-API v2](https://www.eia.gov/opendata/).
+The **EIAapi** package provides functions to query and pull tidy data
+from [EIA API v2](https://www.eia.gov/opendata/).
+
+Introduction to the EIAapi package available
+[here](https://ramikrispin.github.io/EIAapi/docs/articles/intro.html).
 
 ## Requirments
 
@@ -25,6 +28,9 @@ following:
     page](https://stedolan.github.io/jq/download/).
 -   API key - To query the EIA API, you will need to register to the
     service to receive the API key.
+
+To register to to the API go to <https://www.eia.gov/opendata/> and
+click the `Register` button, and follow the instruction.
 
 ## Installation
 
@@ -39,7 +45,7 @@ Or, install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("RamiKrispin/tsafr/R/EIAapi")
+devtools::install_github("RamiKrispin/EIAapi")
 ```
 
 ## Query data
@@ -95,7 +101,7 @@ api_key <- Sys.getenv("eia_key")
 
 df1 <- eia_get(
   api_key = api_key,
-  api_url = "https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/",
+  api_path = "electricity/rto/fuel-type-data/data/",
   data = "value"
 )
 
@@ -119,6 +125,17 @@ head(df1)
 #> 6     Nuclear  2001 megawatthours
 ```
 
+**Note:** The `api_path` argument defines by the query of the path that
+following the endpoint of the API - `https://api.eia.gov/v2/`. In the
+example above the API full URL is:
+
+``` html
+https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/
+```
+
+Therefore, the query’s path is set to
+`electricity/rto/fuel-type-data/data/`.
+
 The `eia_get` function leverages the
 [jq](https://stedolan.github.io/jq/) tool to parse the return JSON
 object from the API into CSV format and the
@@ -130,7 +147,7 @@ output object as `data.table`:
 ``` r
 df2 <- eia_get(
   api_key = api_key,
-  api_url = "https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/",
+  api_path = "electricity/rto/fuel-type-data/data/",
   data = "value",
   format = "data.table"
 )
@@ -168,7 +185,7 @@ If you wish to pull more than the `length` upper limit, you can use the
 ``` r
 df3 <- eia_get(
   api_key = api_key,
-  api_url = "https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/",
+  api_path = "electricity/rto/fuel-type-data/data/",
   data = "value",
   length = 5000,
   offset = 5000,
@@ -243,7 +260,7 @@ facets <- list(respondent = "US48", fueltype = "NG")
 
 df4 <- eia_get(
   api_key = api_key,
-  api_url = "https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/",
+  api_path = "electricity/rto/fuel-type-data/data/",
   data = "value",
   length = 5000,
   format = "data.table",
@@ -289,7 +306,7 @@ query. For example, let’s set a window between June 1st and October 1st,
 ``` r
 df5 <- eia_get(
   api_key = api_key,
-  api_url = "https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/",
+  api_path = "electricity/rto/fuel-type-data/data/",
   data = "value",
   length = 5000,
   format = "data.table",

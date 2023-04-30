@@ -1,7 +1,8 @@
 #' Query the EIA API
 #' @description Function to query and extract data from the EIA API v2
 #' @param api_key A string, EIA API key, see https://www.eia.gov/opendata/ for registration to the API service
-#' @param api_url A string, the API URL, can be found on the EIA API dashboard, for more details see https://www.eia.gov/opendata/browser/
+#' @param api_path A string, the API path to follow the API endpoint https://api.eia.gov/v2/.
+#' The path can be found on the EIA API dashboard, for more details see https://www.eia.gov/opendata/browser/
 #' @param data A string, the metric type, by default uses 'value' (defined as
 #' 'data' on the API header)
 #' @param facets A list, optional, set the filtering argument (defined as 'facets'
@@ -33,13 +34,13 @@
 #'
 #' df <- eia_get(
 #'   api_key = api_key,
-#'   api_url = "https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/",
+#'   api_path = "electricity/rto/fuel-type-data/data/",
 #'   data = "value"
 #' )
 #'}
 
 eia_get <- function(api_key,
-                    api_url,
+                    api_path,
                     data = "value",
                     facets = NULL,
                     start = NULL,
@@ -53,12 +54,12 @@ eia_get <- function(api_key,
     stop("The api_key argument is missing... \033[0;92m\xE2\x9D\x8C\033[0m\n")
   } else if(!is.character(api_key)){
     stop("The api_key argument is not valid... \033[0;92m\xE2\x9D\x8C\033[0m\n")
-  } else if(missing(api_url)){
-    stop(paste("The api_url argument is missing... \033[0;92m\xE2\x9D\x8C\033[0m\n",
+  } else if(missing(api_path)){
+    stop(paste("The api_path argument is missing... \033[0;92m\xE2\x9D\x8C\033[0m\n",
                "Please check the API Dashboard for the API URL:\n",
                "https://www.eia.gov/opendata/browser/", sep = ""))
-  } else if(!is.character(api_url)){
-    stop(paste("The api_url argument is not valid, must be a character object \033[0;92m\xE2\x9D\x8C\033[0m\n",
+  } else if(!is.character(api_path)){
+    stop(paste("The api_path argument is not valid, must be a character object \033[0;92m\xE2\x9D\x8C\033[0m\n",
                "Please check the API Dashboard for the API URL:\n",
                "https://www.eia.gov/opendata/browser/", sep = ""))
   } else if(missing(data) && !is.character(data)){
@@ -89,8 +90,8 @@ eia_get <- function(api_key,
                "Must be either 'data.frame' or 'data.table'", sep = ""))
   }
 
-    if(substr(api_url, start = nchar(api_url), stop = nchar(api_url)) == "/"){
-      api_url <- substr(api_url, start = 1, stop = nchar(api_url) - 1)
+    if(substr(api_path, start = nchar(api_path), stop = nchar(api_path)) == "/"){
+      api_path <- substr(api_path, start = 1, stop = nchar(api_path) - 1)
   }
 
   if(is.null(start)){
@@ -134,6 +135,7 @@ eia_get <- function(api_key,
     q <- paste("&frequency=", frequency, sep = "")
   }
 
+  api_url <- paste("https://api.eia.gov/v2/", api_path, sep = "")
   query <- NULL
   query <- paste("curl '",
                  api_url,
@@ -160,7 +162,7 @@ eia_get <- function(api_key,
 
   if(is.null(df)){
     stop(paste("Could not pull the data... \033[0;92m\xE2\x9D\x8C\033[0m\n",
-               "Check the query parameters (e.g., api key, url, etc.)\n", sep = ""))
+               "Check the query parameters (e.g., api key, path, etc.) or the error log\n", sep = ""))
   }
   if(format == "data.frame"){
     df <- as.data.frame(df)

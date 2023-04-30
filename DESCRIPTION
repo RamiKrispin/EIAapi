@@ -1,7 +1,7 @@
 Package: EIAapi
 Type: Package
 Title: Query Data from the 'EIA' API
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person(given = "Rami", 
                     family ="Krispin", 
                     email = "rami.krispin@gmail.com",
@@ -12,8 +12,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.1
-Suggests:
+Imports:
+  jsonlite (>= 1.8.2),
   data.table (>= 1.14.2)
+Suggests:
+    knitr,
+    plotly (>= 4.10.0),
+    rmarkdown
 SystemRequirements: The package required the jq command line library. Please check https://stedolan.github.io/jq/download/ for download instructions.
 URL: https://github.com/RamiKrispin/EIAapi
 BugReports: https://github.com/RamiKrispin/EIAapi/issues
+VignetteBuilder: knitr
