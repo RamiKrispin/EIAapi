@@ -25,6 +25,9 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/eia_backfill.html</loc>
+  </url>
+  <url>
     <loc>/reference/eia_get.html</loc>
   </url>
   <url>
