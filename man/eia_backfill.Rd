@@ -40,7 +40,7 @@ it is not recommended, for hourly series, to pull more than ~ 2160 observations
 per query (~ 3 months).
 }
 \examples{
-
+\dontrun{
  start <- as.POSIXlt("2018-06-19T00", tz = "UTC")
  end <- lubridate::floor_date(Sys.time()- lubridate::days(2), unit = "day")
  attr(end, "tzone") <- "UTC"
@@ -77,5 +77,5 @@ per query (~ 3 months).
 
  mtext(side =2, text = format(at_y, scientific = FALSE), at = at_y,
        col = "grey20", line = 1, cex = 0.8)
-
+}
 }

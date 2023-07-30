@@ -21,7 +21,7 @@
 #' @return A time series
 #' @export
 #' @examples
-#'
+#'\dontrun{
 #'  start <- as.POSIXlt("2018-06-19T00", tz = "UTC")
 #'  end <- lubridate::floor_date(Sys.time()- lubridate::days(2), unit = "day")
 #'  attr(end, "tzone") <- "UTC"
@@ -58,7 +58,7 @@
 #'
 #'  mtext(side =2, text = format(at_y, scientific = FALSE), at = at_y,
 #'        col = "grey20", line = 1, cex = 0.8)
-#'
+#'}
 
 eia_backfill <- function(start,
                      end,
