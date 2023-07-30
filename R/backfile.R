@@ -113,13 +113,19 @@ eia_backfill <- function(start,
   }
 
 
+time_vec_seq <- seq_along(time_vec)[-length(time_vec)]
 
-  df <- lapply(seq_along(time_vec)[-length(time_vec)], function(i){
+  df <- lapply(time_vec_seq, function(i){
 
     temp <- start_h <- end_h <- start_time <- end_time <- NULL
     s <- time_vec[i]
     if(time_class == "POSIXt"){
-      e <- time_vec[i + 1] - lubridate::hours(1)
+      if(i < max(time_vec_seq)){
+        e <- time_vec[i + 1] - lubridate::hours(1)
+      } else {
+        e <- time_vec[i + 1]
+      }
+
       start_h <- lubridate::hour(s)
       end_h <- lubridate::hour(e)
       if(start_h < 10){
