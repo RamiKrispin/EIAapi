@@ -29,12 +29,15 @@ hourly series."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/backfile.html">Working with Large Dataset</a>
+    </li>
+    <li>
       <a href="../articles/intro.html">Introduction to the EIA API</a>
     </li>
   </ul></li>
@@ -69,7 +72,7 @@ hourly series.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">eia_backfill</span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span>, <span class="va">offset</span>, <span class="va">api_key</span>, <span class="va">api_path</span>, <span class="va">facets</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">eia_backfill</span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span>, <span class="va">offset</span>, <span class="va">api_key</span>, <span class="va">api_path</span>, <span class="va">facets</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -77,87 +80,72 @@ hourly series.</p>
     <dl><dt>start</dt>
 <dd><p>defines the start time of the series, should use a POSIXt class
 for hourly series or Date format for non-hourly series (daily, monthly, etc.)</p></dd>
-
-
 <dt>end</dt>
 <dd><p>defines the end time of the series, should use a POSIXt class
 for hourly series or Date format for non-hourly series (daily, monthly, etc.)</p></dd>
-
-
 <dt>offset</dt>
-<dd><p>An integer, defines the number of observations limitation per query</p></dd>
-
-
+<dd><p>An integer, defines the number of observations limitation per query.
+In line with the API limitation of up to 5000 observations per query, the offset argument's upper limit is 5000 observations.</p></dd>
 <dt>api_key</dt>
 <dd><p>A string, EIA API key, see https://www.eia.gov/opendata/ for registration to the API service</p></dd>
-
-
 <dt>api_path</dt>
 <dd><p>A string, the API path to follow the API endpoint https://api.eia.gov/v2/.
 The path can be found on the EIA API dashboard, for more details see https://www.eia.gov/opendata/browser/</p></dd>
-
-
 <dt>facets</dt>
 <dd><p>A list, optional, set the filtering argument (defined as 'facets'
 on the API header), following the structure of list(facet_name_1 = value_1,
 facet_name_2 = value_2)</p></dd>
-
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A time series</p>
+    <p>A time series</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>The function use start, end, and offset arguments to define a sequence
-of queries. While the API enables you to pull up to 5000 observations per query,
-it is not recommended, for hourly series, to pull more than ~ 2160 observations
-per query (~ 3 months).</p>
+of queries.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span> <span class="va">start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2018-06-19T00"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="va">end</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html" class="external-link">floor_date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">days</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">end</span>, <span class="st">"tzone"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"UTC"</span></span></span>
-<span class="r-in"><span> <span class="va">offset</span> <span class="op">&lt;-</span> <span class="fl">24</span> <span class="op">*</span> <span class="fl">30</span> <span class="op">*</span> <span class="fl">3</span></span></span>
-<span class="r-in"><span> <span class="va">api_key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="va">api_path</span> <span class="op">&lt;-</span> <span class="st">"electricity/rto/region-sub-ba-data/data/"</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span> <span class="va">facets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="st">"NYIS"</span>,</span></span>
-<span class="r-in"><span>               subba <span class="op">=</span> <span class="st">"ZONA"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span> <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">eia_backfill</span><span class="op">(</span>start <span class="op">=</span> <span class="va">start</span>,</span></span>
-<span class="r-in"><span>                end <span class="op">=</span> <span class="va">end</span>,</span></span>
-<span class="r-in"><span>                offset <span class="op">=</span> <span class="va">offset</span>,</span></span>
-<span class="r-in"><span>                api_key <span class="op">=</span> <span class="va">api_key</span>,</span></span>
-<span class="r-in"><span>                api_path <span class="op">=</span> <span class="va">api_path</span>,</span></span>
-<span class="r-in"><span>                facets <span class="op">=</span> <span class="va">facets</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span> <span class="va">at_y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">value</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span><span class="op">]</span></span></span>
-<span class="r-in"><span> <span class="va">at_x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">start</span>,</span></span>
-<span class="r-in"><span>                  to <span class="op">=</span> <span class="va">end</span>,</span></span>
-<span class="r-in"><span>                  by <span class="op">=</span> <span class="st">"2 years"</span><span class="op">)</span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">time</span>, <span class="va">df</span><span class="op">$</span><span class="va">value</span>,</span></span>
-<span class="r-in"><span>      col <span class="op">=</span> <span class="st">"#1f77b4"</span>,</span></span>
-<span class="r-in"><span>      type <span class="op">=</span> <span class="st">"l"</span>,</span></span>
-<span class="r-in"><span>      frame.plot <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
-<span class="r-in"><span>      axes <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
-<span class="r-in"><span>      panel.first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">at_y</span>, col <span class="op">=</span> <span class="st">"grey80"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>      main <span class="op">=</span> <span class="st">"NY Independent System Operator (West) - Hourly Generation of Electricity"</span>,</span></span>
-<span class="r-in"><span>      xlab <span class="op">=</span> <span class="st">"Source: https://www.eia.gov/"</span>,</span></span>
-<span class="r-in"><span>      ylab <span class="op">=</span> <span class="st">"MegaWatt/Hours"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side <span class="op">=</span><span class="fl">1</span>, text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">at_x</span>, format <span class="op">=</span> <span class="st">"%Y"</span><span class="op">)</span>, at <span class="op">=</span> <span class="va">at_x</span>,</span></span>
-<span class="r-in"><span>       col <span class="op">=</span> <span class="st">"grey20"</span>, line <span class="op">=</span> <span class="fl">1</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side <span class="op">=</span><span class="fl">2</span>, text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">at_y</span>, scientific <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, at <span class="op">=</span> <span class="va">at_y</span>,</span></span>
-<span class="r-in"><span>       col <span class="op">=</span> <span class="st">"grey20"</span>, line <span class="op">=</span> <span class="fl">1</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="eia_backfill-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"> <span class="va">start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXlt</a></span><span class="op">(</span><span class="st">"2018-06-19T00"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span>
+<span class="r-in"> <span class="va">end</span> <span class="op">&lt;-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/round_date.html" class="external-link">floor_date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">-</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">days</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">"day"</span><span class="op">)</span></span>
+<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">end</span>, <span class="st">"tzone"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"UTC"</span></span>
+<span class="r-in"> <span class="va">offset</span> <span class="op">&lt;-</span> <span class="fl">2000</span></span>
+<span class="r-in"> <span class="va">api_key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span></span>
+<span class="r-in"> <span class="va">api_path</span> <span class="op">&lt;-</span> <span class="st">"electricity/rto/region-sub-ba-data/data/"</span></span>
+<span class="r-in"></span>
+<span class="r-in"> <span class="va">facets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="st">"NYIS"</span>,</span>
+<span class="r-in">               subba <span class="op">=</span> <span class="st">"ZONA"</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"> <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">eia_backfill</span><span class="op">(</span>start <span class="op">=</span> <span class="va">start</span>,</span>
+<span class="r-in">                end <span class="op">=</span> <span class="va">end</span>,</span>
+<span class="r-in">                offset <span class="op">=</span> <span class="va">offset</span>,</span>
+<span class="r-in">                api_key <span class="op">=</span> <span class="va">api_key</span>,</span>
+<span class="r-in">                api_path <span class="op">=</span> <span class="va">api_path</span>,</span>
+<span class="r-in">                facets <span class="op">=</span> <span class="va">facets</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"> <span class="va">at_y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/pretty.html" class="external-link">pretty</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">value</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span><span class="op">]</span></span>
+<span class="r-in"> <span class="va">at_x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.POSIXt.html" class="external-link">seq.POSIXt</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">start</span>,</span>
+<span class="r-in">                  to <span class="op">=</span> <span class="va">end</span>,</span>
+<span class="r-in">                  by <span class="op">=</span> <span class="st">"2 years"</span><span class="op">)</span></span>
+<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">time</span>, <span class="va">df</span><span class="op">$</span><span class="va">value</span>,</span>
+<span class="r-in">      col <span class="op">=</span> <span class="st">"#1f77b4"</span>,</span>
+<span class="r-in">      type <span class="op">=</span> <span class="st">"l"</span>,</span>
+<span class="r-in">      frame.plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span class="r-in">      axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span class="r-in">      panel.first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">at_y</span>, col <span class="op">=</span> <span class="st">"grey80"</span><span class="op">)</span>,</span>
+<span class="r-in">      main <span class="op">=</span> <span class="st">"NY Independent System Operator (West) - Hourly Generation of Electricity"</span>,</span>
+<span class="r-in">      xlab <span class="op">=</span> <span class="st">"Source: https://www.eia.gov/"</span>,</span>
+<span class="r-in">      ylab <span class="op">=</span> <span class="st">"MegaWatt/Hours"</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side <span class="op">=</span><span class="fl">1</span>, text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">at_x</span>, format <span class="op">=</span> <span class="st">"%Y"</span><span class="op">)</span>, at <span class="op">=</span> <span class="va">at_x</span>,</span>
+<span class="r-in">       col <span class="op">=</span> <span class="st">"grey20"</span>, line <span class="op">=</span> <span class="fl">1</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"> <span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html" class="external-link">mtext</a></span><span class="op">(</span>side <span class="op">=</span><span class="fl">2</span>, text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">at_y</span>, scientific <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, at <span class="op">=</span> <span class="va">at_y</span>,</span>
+<span class="r-in">       col <span class="op">=</span> <span class="st">"grey20"</span>, line <span class="op">=</span> <span class="fl">1</span>, cex <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -172,7 +160,8 @@ per query (~ 3 months).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.1.</p>
 </div>
 
       </footer></div>
