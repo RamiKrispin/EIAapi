@@ -14,7 +14,7 @@ for hourly series or Date format for non-hourly series (daily, monthly, etc.)}
 for hourly series or Date format for non-hourly series (daily, monthly, etc.)}
 
 \item{offset}{An integer, defines the number of observations limitation per query.
-Note that this argument cannot surpass the API observations limit per call of 5000.}
+In line with the API limitation of up to 5000 observations per query, the offset argument's upper limit is 5000 observations.}
 
 \item{api_key}{A string, EIA API key, see https://www.eia.gov/opendata/ for registration to the API service}
 
@@ -36,16 +36,14 @@ hourly series.
 }
 \details{
 The function use start, end, and offset arguments to define a sequence
-of queries. While the API enables you to pull up to 5000 observations per query,
-it is not recommended, for hourly series, to pull more than ~ 2160 observations
-per query (~ 3 months).
+of queries.
 }
 \examples{
 \dontrun{
  start <- as.POSIXlt("2018-06-19T00", tz = "UTC")
  end <- lubridate::floor_date(Sys.time()- lubridate::days(2), unit = "day")
  attr(end, "tzone") <- "UTC"
- offset <- 24 * 30 * 3
+ offset <- 2000
  api_key <- Sys.getenv("eia_key")
  api_path <- "electricity/rto/region-sub-ba-data/data/"
 

@@ -8,7 +8,7 @@
 #' @param end defines the end time of the series, should use a POSIXt class
 #' for hourly series or Date format for non-hourly series (daily, monthly, etc.)
 #' @param offset An integer, defines the number of observations limitation per query.
-#' Note that this argument cannot surpass the API observations limit per call of 5000.
+#'  In line with the API limitation of up to 5000 observations per query, the offset argument's upper limit is 5000 observations.
 #' @param api_key A string, EIA API key, see https://www.eia.gov/opendata/ for registration to the API service
 #' @param api_path A string, the API path to follow the API endpoint https://api.eia.gov/v2/.
 #' The path can be found on the EIA API dashboard, for more details see https://www.eia.gov/opendata/browser/
@@ -16,9 +16,7 @@
 #' on the API header), following the structure of list(facet_name_1 = value_1,
 #' facet_name_2 = value_2)
 #' @details The function use start, end, and offset arguments to define a sequence
-#' of queries. While the API enables you to pull up to 5000 observations per query,
-#' it is not recommended, for hourly series, to pull more than ~ 2160 observations
-#' per query (~ 3 months).
+#' of queries.
 #' @return A time series
 #' @export
 #' @examples
@@ -26,7 +24,7 @@
 #'  start <- as.POSIXlt("2018-06-19T00", tz = "UTC")
 #'  end <- lubridate::floor_date(Sys.time()- lubridate::days(2), unit = "day")
 #'  attr(end, "tzone") <- "UTC"
-#'  offset <- 24 * 30 * 3
+#'  offset <- 2000
 #'  api_key <- Sys.getenv("eia_key")
 #'  api_path <- "electricity/rto/region-sub-ba-data/data/"
 #'
@@ -91,7 +89,7 @@ eia_backfill <- function(start,
   } else if(!is.null(facets) && !is.list(facets)){
     stop("The facets argument must be a list object")
   } else if(offset > 5000){
-    message("The offset argument surpass the API number of observations per call limit, setting it to 5000")
+    message("The offset argument surpasses the API number of observations per call limit, setting it to 5000")
     offset <- 5000
   }
 
@@ -135,7 +133,7 @@ time_vec_seq <- seq_along(time_vec)[-length(time_vec)]
       if(start_h < 10){
         start_time <- paste(substr(as.character(s), 1, 10), "T0", start_h, sep = "")
       } else {
-        start_time <- paste(substr(as.character(start), 1, 10), "T", start_h, sep = "")
+        start_time <- paste(substr(as.character(s), 1, 10), "T", start_h, sep = "")
       }
 
 
@@ -181,7 +179,9 @@ time_vec_seq <- seq_along(time_vec)[-length(time_vec)]
 
     return(temp)
   }) |>
-    dplyr::bind_rows()
+    dplyr::bind_rows() |>
+    dplyr::arrange(time)
+
 
 
 
