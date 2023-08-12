@@ -7,7 +7,8 @@
 #' for hourly series or Date format for non-hourly series (daily, monthly, etc.)
 #' @param end defines the end time of the series, should use a POSIXt class
 #' for hourly series or Date format for non-hourly series (daily, monthly, etc.)
-#' @param offset An integer, defines the number of observations limitation per query
+#' @param offset An integer, defines the number of observations limitation per query.
+#' Note that this argument cannot surpass the API observations limit per call of 5000.
 #' @param api_key A string, EIA API key, see https://www.eia.gov/opendata/ for registration to the API service
 #' @param api_path A string, the API path to follow the API endpoint https://api.eia.gov/v2/.
 #' The path can be found on the EIA API dashboard, for more details see https://www.eia.gov/opendata/browser/
@@ -89,6 +90,9 @@ eia_backfill <- function(start,
     # Validate the facets argument
   } else if(!is.null(facets) && !is.list(facets)){
     stop("The facets argument must be a list object")
+  } else if(offset > 5000){
+    message("The offset argument surpass the API number of observations per call limit, setting it to 5000")
+    offset <- 5000
   }
 
 

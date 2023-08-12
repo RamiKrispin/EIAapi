@@ -13,7 +13,8 @@ for hourly series or Date format for non-hourly series (daily, monthly, etc.)}
 \item{end}{defines the end time of the series, should use a POSIXt class
 for hourly series or Date format for non-hourly series (daily, monthly, etc.)}
 
-\item{offset}{An integer, defines the number of observations limitation per query}
+\item{offset}{An integer, defines the number of observations limitation per query.
+Note that this argument cannot surpass the API observations limit per call of 5000.}
 
 \item{api_key}{A string, EIA API key, see https://www.eia.gov/opendata/ for registration to the API service}
 
