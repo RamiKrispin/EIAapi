@@ -137,7 +137,7 @@ eia_get <- function(api_key,
 
   api_url <- paste("https://api.eia.gov/v2/", api_path, sep = "")
   query <- NULL
-  query <- paste("curl '",
+  query <- paste("curl -g '",
                  api_url,
                  "?api_key=",
                  api_key,
