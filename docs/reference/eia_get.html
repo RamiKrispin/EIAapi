@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EIAapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
       </span>
     </div>
 
@@ -26,12 +26,15 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/backfile.html">Working with Large Dataset</a>
+    </li>
+    <li>
       <a href="../articles/intro.html">Introduction to the EIA API</a>
     </li>
   </ul></li>
@@ -63,96 +66,75 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">eia_get</span><span class="op">(</span></span>
-<span>  <span class="va">api_key</span>,</span>
-<span>  <span class="va">api_path</span>,</span>
-<span>  data <span class="op">=</span> <span class="st">"value"</span>,</span>
-<span>  facets <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  start <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  end <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  length <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  offset <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  frequency <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  format <span class="op">=</span> <span class="st">"data.frame"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">eia_get</span><span class="op">(</span>
+  <span class="va">api_key</span>,
+  <span class="va">api_path</span>,
+  data <span class="op">=</span> <span class="st">"value"</span>,
+  facets <span class="op">=</span> <span class="cn">NULL</span>,
+  start <span class="op">=</span> <span class="cn">NULL</span>,
+  end <span class="op">=</span> <span class="cn">NULL</span>,
+  length <span class="op">=</span> <span class="cn">NULL</span>,
+  offset <span class="op">=</span> <span class="cn">NULL</span>,
+  frequency <span class="op">=</span> <span class="cn">NULL</span>,
+  format <span class="op">=</span> <span class="st">"data.frame"</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>api_key</dt>
 <dd><p>A string, EIA API key, see https://www.eia.gov/opendata/ for registration to the API service</p></dd>
-
-
 <dt>api_path</dt>
 <dd><p>A string, the API path to follow the API endpoint https://api.eia.gov/v2/.
 The path can be found on the EIA API dashboard, for more details see https://www.eia.gov/opendata/browser/</p></dd>
-
-
 <dt>data</dt>
 <dd><p>A string, the metric type, by default uses 'value' (defined as
 'data' on the API header)</p></dd>
-
-
 <dt>facets</dt>
 <dd><p>A list, optional, set the filtering argument (defined as 'facets'
 on the API header), following the structure of list(facet_name_1 = value_1,
 facet_name_2 = value_2)</p></dd>
-
-
 <dt>start</dt>
 <dd><p>A string, optional, set the starting date or time of the series
 using "YYYY-MM-DD" format for date and "YYYY-MM-DDTHH" format for hourly time series</p></dd>
-
-
 <dt>end</dt>
 <dd><p>A string, optional, set the ending date or time of the series
 using "YYYY-MM-DD" format for date and "YYYY-MM-DDTHH" format for hourly time series</p></dd>
-
-
 <dt>length</dt>
 <dd><p>An integer, optional, defines the length of the series, if set to
 NULL (default), will default to the API default value of 5000 observations per
 pull. The API enables a pull of up to 100K observations per call. If needed to
 pull more than the API limit per call, recommend to iterate the call with
 the use of the start, end and/or offset arguments</p></dd>
-
-
 <dt>offset</dt>
 <dd><p>An integer, optional, set the number of observations to offset
 from the default starting point of the series. If set to NULL (default), will default
 to the API default value of 0</p></dd>
-
-
 <dt>frequency</dt>
 <dd><p>A string, optional, define the API frequency argument
 (e.g., hourly, monthly, annual, etc.). If set to NULL (default), will default
 to the API default value</p></dd>
-
-
 <dt>format</dt>
 <dd><p>A string, defines the output of the return object to either
 "data.frame" (default) or "data.table"</p></dd>
-
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>data.table/data.frame object</p>
+    <p>data.table/data.frame object</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co"># Required an EIA API key to send a query</span></span></span>
-<span class="r-in"><span><span class="va">api_key</span> <span class="op">&lt;-</span> <span class="st">"YOUR_API_KEY"</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">eia_get</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  api_key <span class="op">=</span> <span class="va">api_key</span>,</span></span>
-<span class="r-in"><span>  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,</span></span>
-<span class="r-in"><span>  data <span class="op">=</span> <span class="st">"value"</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="co"># Required an EIA API key to send a query</span></span>
+<span class="r-in"><span class="va">api_key</span> <span class="op">&lt;-</span> <span class="st">"YOUR_API_KEY"</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">eia_get</span><span class="op">(</span></span>
+<span class="r-in">  api_key <span class="op">=</span> <span class="va">api_key</span>,</span>
+<span class="r-in">  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,</span>
+<span class="r-in">  data <span class="op">=</span> <span class="st">"value"</span></span>
+<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -167,7 +149,8 @@ to the API default value</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.1.</p>
 </div>
 
       </footer></div>

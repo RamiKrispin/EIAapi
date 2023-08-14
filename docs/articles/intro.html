@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EIAapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
       </span>
     </div>
 
@@ -43,13 +43,16 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/backfile.html">Working with Large Dataset</a>
+    </li>
+    <li>
       <a href="../articles/intro.html">Introduction to the EIA API</a>
     </li>
   </ul>
@@ -150,7 +153,7 @@ selection above, here is the expected respond:</p>
 <p><br></p>
 <p>Let’s look at the returned metadata above and use it to set the query
 to pull the data, starting with the <code>API URL</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>https://api.eia.gov/v2/electricity/rto/region-sub-ba-data/data/?frequency=hourly<span class="er">&amp;</span>data[0]=value<span class="er">&amp;</span>facets[parent][]=CISO<span class="er">&amp;</span>facets[subba][]=PGAE<span class="er">&amp;</span>sort[0][column]=period<span class="er">&amp;</span>sort[0][direction]=desc<span class="er">&amp;</span>offset=0<span class="er">&amp;</span>length=5000</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>https://api.eia.gov/v2/electricity/rto/region-sub-ba-data/data/?frequency=hourly<span class="er">&amp;</span>data[0]=value<span class="er">&amp;</span>facets[parent][]=CISO<span class="er">&amp;</span>facets[subba][]=PGAE<span class="er">&amp;</span>sort[0][column]=period<span class="er">&amp;</span>sort[0][direction]=desc<span class="er">&amp;</span>offset=0<span class="er">&amp;</span>length=5000</span></code></pre></div>
 <p>The URL contains the following components:</p>
 <ul>
 <li>The API endpoint - <code>https://api.eia.gov/v2/</code>
@@ -165,66 +168,66 @@ to pull the data, starting with the <code>API URL</code>:</p>
 the query parameters, you can use the embedded query in the URL by
 extracting the values of the different filters (frequency, facet, etc.)
 or use the query header on the right side:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="er">X-Params:</span> <span class="fu">{</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">"frequency"</span><span class="fu">:</span> <span class="st">"hourly"</span><span class="fu">,</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">"data"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">"value"</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">"facets"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">"parent"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">"CISO"</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dt">"subba"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st">"PGAE"</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">},</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dt">"start"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="dt">"end"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="dt">"sort"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="dt">"column"</span><span class="fu">:</span> <span class="st">"period"</span><span class="fu">,</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="dt">"direction"</span><span class="fu">:</span> <span class="st">"desc"</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="dt">"offset"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="dt">"length"</span><span class="fu">:</span> <span class="dv">5000</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="er">X-Params:</span> <span class="fu">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="dt">"frequency"</span><span class="fu">:</span> <span class="st">"hourly"</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="dt">"data"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="st">"value"</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="dt">"facets"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="dt">"parent"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="st">"CISO"</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="dt">"subba"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="st">"PGAE"</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="ot">]</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="fu">},</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="dt">"start"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="dt">"end"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="dt">"sort"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="dt">"column"</span><span class="fu">:</span> <span class="st">"period"</span><span class="fu">,</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="dt">"direction"</span><span class="fu">:</span> <span class="st">"desc"</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="fu">}</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="dt">"offset"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="dt">"length"</span><span class="fu">:</span> <span class="dv">5000</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>We can now set the query by defining the <code>frequency</code>,
 <code>data</code>, and <code>facets</code> arguments as defined in the
 header above:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RamiKrispin/EIAapi" class="external-link">EIAapi</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eia_get.html">eia_get</a></span><span class="op">(</span>api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span>,</span>
-<span>               api_path <span class="op">=</span> <span class="st">"electricity/rto/region-sub-ba-data/data/"</span>,</span>
-<span>               frequency <span class="op">=</span> <span class="st">"hourly"</span>,</span>
-<span>               data <span class="op">=</span> <span class="st">"value"</span>,</span>
-<span>               facets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="st">"CISO"</span>,</span>
-<span>                             subba <span class="op">=</span> <span class="st">"PGAE"</span><span class="op">)</span>,</span>
-<span>               offset <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>               length <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span></span>
-<span><span class="co">#&gt;          period subba               subba-name parent</span></span>
-<span><span class="co">#&gt; 1 2019-09-02T07  PGAE Pacific Gas and Electric   CISO</span></span>
-<span><span class="co">#&gt; 2 2019-09-01T11  PGAE Pacific Gas and Electric   CISO</span></span>
-<span><span class="co">#&gt; 3 2019-09-01T10  PGAE Pacific Gas and Electric   CISO</span></span>
-<span><span class="co">#&gt; 4 2019-09-02T04  PGAE Pacific Gas and Electric   CISO</span></span>
-<span><span class="co">#&gt; 5 2019-09-01T21  PGAE Pacific Gas and Electric   CISO</span></span>
-<span><span class="co">#&gt; 6 2019-09-02T05  PGAE Pacific Gas and Electric   CISO</span></span>
-<span><span class="co">#&gt;                              parent-name value   value-units</span></span>
-<span><span class="co">#&gt; 1 California Independent System Operator 12431 megawatthours</span></span>
-<span><span class="co">#&gt; 2 California Independent System Operator 10270 megawatthours</span></span>
-<span><span class="co">#&gt; 3 California Independent System Operator 10620 megawatthours</span></span>
-<span><span class="co">#&gt; 4 California Independent System Operator 15685 megawatthours</span></span>
-<span><span class="co">#&gt; 5 California Independent System Operator 12945 megawatthours</span></span>
-<span><span class="co">#&gt; 6 California Independent System Operator 14750 megawatthours</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">parent</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "CISO"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">subba</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "PGAE"</span></span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RamiKrispin/EIAapi" class="external-link">EIAapi</a></span><span class="op">)</span>
+
+<span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eia_get.html">eia_get</a></span><span class="op">(</span>api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span>,
+               api_path <span class="op">=</span> <span class="st">"electricity/rto/region-sub-ba-data/data/"</span>,
+               frequency <span class="op">=</span> <span class="st">"hourly"</span>,
+               data <span class="op">=</span> <span class="st">"value"</span>,
+               facets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="st">"CISO"</span>,
+                             subba <span class="op">=</span> <span class="st">"PGAE"</span><span class="op">)</span>,
+               offset <span class="op">=</span> <span class="fl">0</span>,
+               length <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span>
+<span class="co">#&gt;          period subba               subba-name parent</span>
+<span class="co">#&gt; 1 2019-09-02T07  PGAE Pacific Gas and Electric   CISO</span>
+<span class="co">#&gt; 2 2019-09-01T11  PGAE Pacific Gas and Electric   CISO</span>
+<span class="co">#&gt; 3 2019-09-01T10  PGAE Pacific Gas and Electric   CISO</span>
+<span class="co">#&gt; 4 2019-09-02T04  PGAE Pacific Gas and Electric   CISO</span>
+<span class="co">#&gt; 5 2019-09-01T21  PGAE Pacific Gas and Electric   CISO</span>
+<span class="co">#&gt; 6 2019-09-02T05  PGAE Pacific Gas and Electric   CISO</span>
+<span class="co">#&gt;                              parent-name value   value-units</span>
+<span class="co">#&gt; 1 California Independent System Operator 12431 megawatthours</span>
+<span class="co">#&gt; 2 California Independent System Operator 10270 megawatthours</span>
+<span class="co">#&gt; 3 California Independent System Operator 10620 megawatthours</span>
+<span class="co">#&gt; 4 California Independent System Operator 15685 megawatthours</span>
+<span class="co">#&gt; 5 California Independent System Operator 12945 megawatthours</span>
+<span class="co">#&gt; 6 California Independent System Operator 14750 megawatthours</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">parent</span><span class="op">)</span>
+<span class="co">#&gt; [1] "CISO"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">subba</span><span class="op">)</span>
+<span class="co">#&gt; [1] "PGAE"</span></code></pre></div>
 <p><strong>Note:</strong> The API limit the number of observations per a
 call to 5000. If you wish to pull more than 5000 observations you can
 iterate your call and set the <code>start</code> and <code>end</code>
@@ -256,47 +259,47 @@ under that path. For example, setting the <code>api_path</code> argument
 empty or <code>NULL</code> returns a list with the API main
 categories:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">main_route</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eia_metadata.html">eia_metadata</a></span><span class="op">(</span>api_path <span class="op">=</span> <span class="st">""</span>,</span>
-<span>                           api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">main_route</span><span class="op">$</span><span class="va">routes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"name"</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="co">#&gt;                   id                            name</span></span>
-<span><span class="co">#&gt; 1               coal                            Coal</span></span>
-<span><span class="co">#&gt; 2  crude-oil-imports               Crude Oil Imports</span></span>
-<span><span class="co">#&gt; 3        electricity                     Electricity</span></span>
-<span><span class="co">#&gt; 4      international                   International</span></span>
-<span><span class="co">#&gt; 5        natural-gas                     Natural Gas</span></span>
-<span><span class="co">#&gt; 6    nuclear-outages                 Nuclear Outages</span></span>
-<span><span class="co">#&gt; 7          petroleum                       Petroleum</span></span>
-<span><span class="co">#&gt; 8               seds State Energy Data System (SEDS)</span></span>
-<span><span class="co">#&gt; 9               steo       Short Term Energy Outlook</span></span>
-<span><span class="co">#&gt; 10 densified-biomass               Densified Biomass</span></span>
-<span><span class="co">#&gt; 11      total-energy                    Total Energy</span></span>
-<span><span class="co">#&gt; 12               aeo           Annual Energy Outlook</span></span>
-<span><span class="co">#&gt; 13               ieo    International Energy Outlook</span></span>
-<span><span class="co">#&gt; 14     co2-emissions             State CO2 Emissions</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">main_route</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eia_metadata.html">eia_metadata</a></span><span class="op">(</span>api_path <span class="op">=</span> <span class="st">""</span>,
+                           api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">main_route</span><span class="op">$</span><span class="va">routes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"name"</span><span class="op">)</span><span class="op">]</span>
+<span class="co">#&gt;                   id                            name</span>
+<span class="co">#&gt; 1               coal                            Coal</span>
+<span class="co">#&gt; 2  crude-oil-imports               Crude Oil Imports</span>
+<span class="co">#&gt; 3        electricity                     Electricity</span>
+<span class="co">#&gt; 4      international                   International</span>
+<span class="co">#&gt; 5        natural-gas                     Natural Gas</span>
+<span class="co">#&gt; 6    nuclear-outages                 Nuclear Outages</span>
+<span class="co">#&gt; 7          petroleum                       Petroleum</span>
+<span class="co">#&gt; 8               seds State Energy Data System (SEDS)</span>
+<span class="co">#&gt; 9               steo       Short Term Energy Outlook</span>
+<span class="co">#&gt; 10 densified-biomass               Densified Biomass</span>
+<span class="co">#&gt; 11      total-energy                    Total Energy</span>
+<span class="co">#&gt; 12               aeo           Annual Energy Outlook</span>
+<span class="co">#&gt; 13               ieo    International Energy Outlook</span>
+<span class="co">#&gt; 14     co2-emissions             State CO2 Emissions</span></code></pre></div>
 <p>Similarly, we can continue and extract the sub-categories under the
 electricity category by setting the <code>api_path</code> argument to
 <code>electricity</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">main_route</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eia_metadata.html">eia_metadata</a></span><span class="op">(</span>api_path <span class="op">=</span> <span class="st">"electricity"</span>,</span>
-<span>                           api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">main_route</span><span class="op">$</span><span class="va">routes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"name"</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="co">#&gt;                                id</span></span>
-<span><span class="co">#&gt; 1                    retail-sales</span></span>
-<span><span class="co">#&gt; 2 electric-power-operational-data</span></span>
-<span><span class="co">#&gt; 3                             rto</span></span>
-<span><span class="co">#&gt; 4      state-electricity-profiles</span></span>
-<span><span class="co">#&gt; 5    operating-generator-capacity</span></span>
-<span><span class="co">#&gt; 6                   facility-fuel</span></span>
-<span><span class="co">#&gt;                                                                         name</span></span>
-<span><span class="co">#&gt; 1                                    Electricity Sales to Ultimate Customers</span></span>
-<span><span class="co">#&gt; 2                             Electric Power Operations (Annual and Monthly)</span></span>
-<span><span class="co">#&gt; 3                               Electric Power Operations (Daily and Hourly)</span></span>
-<span><span class="co">#&gt; 4                                                        State Specific Data</span></span>
-<span><span class="co">#&gt; 5                                           Inventory of Operable Generators</span></span>
-<span><span class="co">#&gt; 6 Electric Power Operations for Individual Power Plants (Annual and Monthly)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">main_route</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eia_metadata.html">eia_metadata</a></span><span class="op">(</span>api_path <span class="op">=</span> <span class="st">"electricity"</span>,
+                           api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">main_route</span><span class="op">$</span><span class="va">routes</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"name"</span><span class="op">)</span><span class="op">]</span>
+<span class="co">#&gt;                                id</span>
+<span class="co">#&gt; 1                    retail-sales</span>
+<span class="co">#&gt; 2 electric-power-operational-data</span>
+<span class="co">#&gt; 3                             rto</span>
+<span class="co">#&gt; 4      state-electricity-profiles</span>
+<span class="co">#&gt; 5    operating-generator-capacity</span>
+<span class="co">#&gt; 6                   facility-fuel</span>
+<span class="co">#&gt;                                                                         name</span>
+<span class="co">#&gt; 1                                    Electricity Sales to Ultimate Customers</span>
+<span class="co">#&gt; 2                             Electric Power Operations (Annual and Monthly)</span>
+<span class="co">#&gt; 3                               Electric Power Operations (Daily and Hourly)</span>
+<span class="co">#&gt; 4                                                        State Specific Data</span>
+<span class="co">#&gt; 5                                           Inventory of Operable Generators</span>
+<span class="co">#&gt; 6 Electric Power Operations for Individual Power Plants (Annual and Monthly)</span></code></pre></div>
 <p><strong>Note:</strong> the number of sub-categories or routes varies
 between the different categories.</p>
 </div>
@@ -306,7 +309,7 @@ between the different categories.</p>
 <p>The last route in the API path defines the series available under
 those categories. For example, we used the above to pull the hourly
 demand for electricity by sub-region the following URL:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>https://api.eia.gov/v2/electricity/rto/region-sub-ba-data/data/?frequency=hourly<span class="er">&amp;</span>data[0]=value<span class="er">&amp;</span>facets[parent][]=CISO<span class="er">&amp;</span>facets[subba][]=PGAE<span class="er">&amp;</span>sort[0][column]=period<span class="er">&amp;</span>sort[0][direction]=desc<span class="er">&amp;</span>offset=0<span class="er">&amp;</span>length=5000</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>https://api.eia.gov/v2/electricity/rto/region-sub-ba-data/data/?frequency=hourly<span class="er">&amp;</span>data[0]=value<span class="er">&amp;</span>facets[parent][]=CISO<span class="er">&amp;</span>facets[subba][]=PGAE<span class="er">&amp;</span>sort[0][column]=period<span class="er">&amp;</span>sort[0][direction]=desc<span class="er">&amp;</span>offset=0<span class="er">&amp;</span>length=5000</span></code></pre></div>
 <p>In this case, the path is defined as -
 <code>electricity/rto/region-sub-ba-data/</code>, where:</p>
 <ul>
@@ -328,96 +331,96 @@ Starting and ending time of the series - Available facets - Series
 Frequency</p>
 <p>For example, let’s query for Demand by Sub-region metadata:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">elec_sub_route</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eia_metadata.html">eia_metadata</a></span><span class="op">(</span>api_path <span class="op">=</span> <span class="st">"electricity/rto/region-sub-ba-data/"</span>,</span>
-<span>                               api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">elec_sub_route</span> </span>
-<span><span class="co">#&gt; $id</span></span>
-<span><span class="co">#&gt; [1] "region-sub-ba-data"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $name</span></span>
-<span><span class="co">#&gt; [1] "Hourly Demand by Subregion"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $description</span></span>
-<span><span class="co">#&gt; [1] "Hourly demand by balancing authority subregion.  \n    Source: Form EIA-930\n    Product: Hourly Electric Grid Monitor"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $frequency</span></span>
-<span><span class="co">#&gt;             id                    alias</span></span>
-<span><span class="co">#&gt; 1       hourly             hourly (UTC)</span></span>
-<span><span class="co">#&gt; 2 local-hourly hourly (Local Time Zone)</span></span>
-<span><span class="co">#&gt;                                   description query               format</span></span>
-<span><span class="co">#&gt; 1   One data point for each hour in UTC time.     H    YYYY-MM-DD"T"HH24</span></span>
-<span><span class="co">#&gt; 2 One data point for each hour in local time.    LH YYYY-MM-DD"T"HH24TZH</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $facets</span></span>
-<span><span class="co">#&gt;       id         description</span></span>
-<span><span class="co">#&gt; 1  subba           Subregion</span></span>
-<span><span class="co">#&gt; 2 parent Balancing Authority</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $data</span></span>
-<span><span class="co">#&gt; $data$value</span></span>
-<span><span class="co">#&gt; $data$value$`aggregation-method`</span></span>
-<span><span class="co">#&gt; [1] "SUM"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $data$value$alias</span></span>
-<span><span class="co">#&gt; [1] "Demand"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $data$value$units</span></span>
-<span><span class="co">#&gt; [1] "megawatthours"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $startPeriod</span></span>
-<span><span class="co">#&gt; [1] "2018-06-19T05"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $endPeriod</span></span>
-<span><span class="co">#&gt; [1] "2023-04-30T07"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $defaultDateFormat</span></span>
-<span><span class="co">#&gt; [1] "YYYY-MM-DD\"T\"HH24"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $defaultFrequency</span></span>
-<span><span class="co">#&gt; [1] "hourly"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $command</span></span>
-<span><span class="co">#&gt; [1] "/v2/electricity/rto/region-sub-ba-data/"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; attr(,"class")</span></span>
-<span><span class="co">#&gt; [1] "list"         "eia_metadata"</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">elec_sub_route</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eia_metadata.html">eia_metadata</a></span><span class="op">(</span>api_path <span class="op">=</span> <span class="st">"electricity/rto/region-sub-ba-data/"</span>,
+                               api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">elec_sub_route</span> 
+<span class="co">#&gt; $id</span>
+<span class="co">#&gt; [1] "region-sub-ba-data"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $name</span>
+<span class="co">#&gt; [1] "Hourly Demand by Subregion"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $description</span>
+<span class="co">#&gt; [1] "Hourly demand by balancing authority subregion.  \n    Source: Form EIA-930\n    Product: Hourly Electric Grid Monitor"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $frequency</span>
+<span class="co">#&gt;             id                    alias</span>
+<span class="co">#&gt; 1       hourly             hourly (UTC)</span>
+<span class="co">#&gt; 2 local-hourly hourly (Local Time Zone)</span>
+<span class="co">#&gt;                                   description query               format</span>
+<span class="co">#&gt; 1   One data point for each hour in UTC time.     H    YYYY-MM-DD"T"HH24</span>
+<span class="co">#&gt; 2 One data point for each hour in local time.    LH YYYY-MM-DD"T"HH24TZH</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $facets</span>
+<span class="co">#&gt;       id         description</span>
+<span class="co">#&gt; 1  subba           Subregion</span>
+<span class="co">#&gt; 2 parent Balancing Authority</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $data</span>
+<span class="co">#&gt; $data$value</span>
+<span class="co">#&gt; $data$value$`aggregation-method`</span>
+<span class="co">#&gt; [1] "SUM"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $data$value$alias</span>
+<span class="co">#&gt; [1] "Demand"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $data$value$units</span>
+<span class="co">#&gt; [1] "megawatthours"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $startPeriod</span>
+<span class="co">#&gt; [1] "2018-06-19T05"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $endPeriod</span>
+<span class="co">#&gt; [1] "2023-08-11T07"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $defaultDateFormat</span>
+<span class="co">#&gt; [1] "YYYY-MM-DD\"T\"HH24"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $defaultFrequency</span>
+<span class="co">#&gt; [1] "hourly"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $command</span>
+<span class="co">#&gt; [1] "/v2/electricity/rto/region-sub-ba-data/"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; attr(,"class")</span>
+<span class="co">#&gt; [1] "list"         "eia_metadata"</span></code></pre></div>
 <p>You can continue and query additional information on this series. For
 example, let’s extract the list of balancing authorities that are
 available for this series under the <code>parent</code> facet:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="fu"><a href="../reference/eia_metadata.html">eia_metadata</a></span><span class="op">(</span>api_path <span class="op">=</span> <span class="st">"electricity/rto/region-sub-ba-data/facet/parent"</span>,</span>
-<span>                               api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $totalFacets</span></span>
-<span><span class="co">#&gt; [1] 8</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $facets</span></span>
-<span><span class="co">#&gt;     id                                           name</span></span>
-<span><span class="co">#&gt; 1 SWPP                           Southwest Power Pool</span></span>
-<span><span class="co">#&gt; 2 NYIS           New York Independent System Operator</span></span>
-<span><span class="co">#&gt; 3 ISNE                                ISO New England</span></span>
-<span><span class="co">#&gt; 4 MISO Midcontinent Independent System Operator, Inc.</span></span>
-<span><span class="co">#&gt; 5 ERCO    Electric Reliability Council of Texas, Inc.</span></span>
-<span><span class="co">#&gt; 6 CISO         California Independent System Operator</span></span>
-<span><span class="co">#&gt; 7  PNM           Public Service Company of New Mexico</span></span>
-<span><span class="co">#&gt; 8  PJM                       PJM Interconnection, LLC</span></span>
-<span><span class="co">#&gt;                                                   alias</span></span>
-<span><span class="co">#&gt; 1                           (SWPP) Southwest Power Pool</span></span>
-<span><span class="co">#&gt; 2           (NYIS) New York Independent System Operator</span></span>
-<span><span class="co">#&gt; 3                                (ISNE) ISO New England</span></span>
-<span><span class="co">#&gt; 4 (MISO) Midcontinent Independent System Operator, Inc.</span></span>
-<span><span class="co">#&gt; 5    (ERCO) Electric Reliability Council of Texas, Inc.</span></span>
-<span><span class="co">#&gt; 6         (CISO) California Independent System Operator</span></span>
-<span><span class="co">#&gt; 7            (PNM) Public Service Company of New Mexico</span></span>
-<span><span class="co">#&gt; 8                        (PJM) PJM Interconnection, LLC</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $command</span></span>
-<span><span class="co">#&gt; [1] "/v2/electricity/rto/region-sub-ba-data/facet/parent/"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; attr(,"class")</span></span>
-<span><span class="co">#&gt; [1] "list"         "eia_metadata"</span></span></code></pre></div>
+<code class="sourceCode R"> <span class="fu"><a href="../reference/eia_metadata.html">eia_metadata</a></span><span class="op">(</span>api_path <span class="op">=</span> <span class="st">"electricity/rto/region-sub-ba-data/facet/parent"</span>,
+                               api_key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; $totalFacets</span>
+<span class="co">#&gt; [1] 8</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $facets</span>
+<span class="co">#&gt;     id                                           name</span>
+<span class="co">#&gt; 1 ISNE                                ISO New England</span>
+<span class="co">#&gt; 2 NYIS           New York Independent System Operator</span>
+<span class="co">#&gt; 3 SWPP                           Southwest Power Pool</span>
+<span class="co">#&gt; 4 ERCO    Electric Reliability Council of Texas, Inc.</span>
+<span class="co">#&gt; 5 MISO Midcontinent Independent System Operator, Inc.</span>
+<span class="co">#&gt; 6 CISO         California Independent System Operator</span>
+<span class="co">#&gt; 7  PNM           Public Service Company of New Mexico</span>
+<span class="co">#&gt; 8  PJM                       PJM Interconnection, LLC</span>
+<span class="co">#&gt;                                                   alias</span>
+<span class="co">#&gt; 1                                (ISNE) ISO New England</span>
+<span class="co">#&gt; 2           (NYIS) New York Independent System Operator</span>
+<span class="co">#&gt; 3                           (SWPP) Southwest Power Pool</span>
+<span class="co">#&gt; 4    (ERCO) Electric Reliability Council of Texas, Inc.</span>
+<span class="co">#&gt; 5 (MISO) Midcontinent Independent System Operator, Inc.</span>
+<span class="co">#&gt; 6         (CISO) California Independent System Operator</span>
+<span class="co">#&gt; 7            (PNM) Public Service Company of New Mexico</span>
+<span class="co">#&gt; 8                        (PJM) PJM Interconnection, LLC</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $command</span>
+<span class="co">#&gt; [1] "/v2/electricity/rto/region-sub-ba-data/facet/parent/"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; attr(,"class")</span>
+<span class="co">#&gt; [1] "list"         "eia_metadata"</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -439,7 +442,8 @@ available for this series under the <code>parent</code> facet:</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.1.</p>
 </div>
 
       </footer>

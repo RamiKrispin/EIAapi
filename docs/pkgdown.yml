@@ -1,7 +1,8 @@
-pandoc: '2.18'
-pkgdown: 2.0.7
+pandoc: 3.1.1
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
+  backfile: backfile.html
   intro: intro.html
-last_built: 2023-04-30T15:56Z
+last_built: 2023-08-12T14:22Z
 

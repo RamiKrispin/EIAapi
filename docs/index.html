@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">EIAapi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
       </span>
     </div>
 
@@ -43,13 +43,16 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/backfile.html">Working with Large Dataset</a>
+    </li>
+    <li>
       <a href="articles/intro.html">Introduction to the EIA API</a>
     </li>
   </ul>
@@ -82,38 +85,47 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The <strong>EIAapi</strong> package provides functions to query and pull tidy data from <a href="https://www.eia.gov/opendata/" class="external-link">EIA API v2</a>.</p>
+<p>The <strong>EIAapi</strong> package provides functions to query and
+pull tidy data from <a href="https://www.eia.gov/opendata/" class="external-link">EIA API
+v2</a>.</p>
 <p>Introduction to the EIAapi package available <a href="https://ramikrispin.github.io/EIAapi/articles/intro.html" class="external-link">here</a>.</p>
 <div class="section level2">
 <h2 id="requirments">Requirments<a class="anchor" aria-label="anchor" href="#requirments"></a>
 </h2>
-<p>To pull data from the API using this package, you will need the following:</p>
+<p>To pull data from the API using this package, you will need the
+following:</p>
 <ul>
-<li>jq - The package uses <a href="https://stedolan.github.io/jq/" class="external-link">jq</a> to parse the API output from JSON to tabular format. To download and install jq follow the instructions on the <a href="https://stedolan.github.io/jq/download/" class="external-link">download page</a>.</li>
-<li>API key - To query the EIA API, you will need to register to the service to receive the API key.</li>
+<li>jq - The package uses <a href="https://stedolan.github.io/jq/" class="external-link">jq</a> to parse the API output
+from JSON to tabular format. To download and install jq follow the
+instructions on the <a href="https://stedolan.github.io/jq/download/" class="external-link">download page</a>.</li>
+<li>API key - To query the EIA API, you will need to register to the
+service to receive the API key.</li>
 </ul>
-<p>To register to to the API go to <a href="https://www.eia.gov/opendata/" class="external-link uri">https://www.eia.gov/opendata/</a> and click the <code>Register</code> button, and follow the instruction.</p>
+<p>To register to to the API go to <a href="https://www.eia.gov/opendata/" class="external-link uri">https://www.eia.gov/opendata/</a> and click the
+<code>Register</code> button, and follow the instruction.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>Install the stable version from [CRAN]:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"EIAapi"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"EIAapi"</span><span class="op">)</span></code></pre></div>
 <p>Or, install the development version from <a href="https://github.com/RamiKrispin/EIAapi" class="external-link">Github</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"RamiKrispin/EIAapi"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"RamiKrispin/EIAapi"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="query-data">Query data<a class="anchor" aria-label="anchor" href="#query-data"></a>
 </h2>
-<p>A suggested workflow to query data from the EIA API with the <code>eia_get</code> function:</p>
+<p>A suggested workflow to query data from the EIA API with the
+<code>eia_get</code> function:</p>
 <ul>
 <li>Go to the EIA API Dashboard <a href="https://www.eia.gov/opendata/browser" class="external-link">website</a>
 </li>
 <li>Select the API Route and define filters</li>
-<li>Submit the query and extract the query information from the query metadata:
+<li>Submit the query and extract the query information from the query
+metadata:
 <ul>
 <li>API URL</li>
 <li>Header</li>
@@ -123,255 +135,276 @@
 <p><a href="https://www.eia.gov/opendata/browser/" class="external-link"><img src="reference/figures/EIA_API_browser.png"></a></p>
 <p>In the example above:</p>
 <ul>
-<li>The API URL: <code>https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/</code>, and</li>
+<li>The API URL:
+<code>https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/</code>,
+and</li>
 <li>The query header:</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"frequency"</span><span class="fu">:</span> <span class="st">"hourly"</span><span class="fu">,</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"data"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"value"</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"facets"</span><span class="fu">:</span> <span class="fu">{},</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"start"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"end"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"sort"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"column"</span><span class="fu">:</span> <span class="st">"period"</span><span class="fu">,</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"direction"</span><span class="fu">:</span> <span class="st">"desc"</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"offset"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"length"</span><span class="fu">:</span> <span class="dv">5000</span><span class="fu">,</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"api-version"</span><span class="fu">:</span> <span class="st">"2.0.3"</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
-<p>Using the URL and header information, we can submit the GET request with the <code>eia_get</code> function:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>    <span class="dt">"frequency"</span><span class="fu">:</span> <span class="st">"hourly"</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>    <span class="dt">"data"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>        <span class="st">"value"</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="dt">"facets"</span><span class="fu">:</span> <span class="fu">{},</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>    <span class="dt">"start"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="dt">"end"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>    <span class="dt">"sort"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>            <span class="dt">"column"</span><span class="fu">:</span> <span class="st">"period"</span><span class="fu">,</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>            <span class="dt">"direction"</span><span class="fu">:</span> <span class="st">"desc"</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>    <span class="dt">"offset"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>    <span class="dt">"length"</span><span class="fu">:</span> <span class="dv">5000</span><span class="fu">,</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>    <span class="dt">"api-version"</span><span class="fu">:</span> <span class="st">"2.0.3"</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Using the URL and header information, we can submit the GET request
+with the <code>eia_get</code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RamiKrispin/EIAapi" class="external-link">EIAapi</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Pulling the API key from my renviron file</span></span>
-<span><span class="va">api_key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eia_get.html">eia_get</a></span><span class="op">(</span></span>
-<span>  api_key <span class="op">=</span> <span class="va">api_key</span>,</span>
-<span>  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,</span>
-<span>  data <span class="op">=</span> <span class="st">"value"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 5000</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span></span>
-<span><span class="co">#&gt;          period respondent                       respondent-name fueltype</span></span>
-<span><span class="co">#&gt; 1 2019-09-02T06        FPC             Duke Energy Florida, Inc.      SUN</span></span>
-<span><span class="co">#&gt; 2 2019-09-03T04       PSEI              Puget Sound Energy, Inc.      WAT</span></span>
-<span><span class="co">#&gt; 3 2019-09-02T11       MIDA                          Mid-Atlantic       NG</span></span>
-<span><span class="co">#&gt; 4 2019-09-02T18         NW                             Northwest      OTH</span></span>
-<span><span class="co">#&gt; 5 2019-09-02T21       AECI Associated Electric Cooperative, Inc.       NG</span></span>
-<span><span class="co">#&gt; 6 2019-09-02T12       CENT                               Central      NUC</span></span>
-<span><span class="co">#&gt;     type-name value   value-units</span></span>
-<span><span class="co">#&gt; 1       Solar     0 megawatthours</span></span>
-<span><span class="co">#&gt; 2       Hydro   497 megawatthours</span></span>
-<span><span class="co">#&gt; 3 Natural gas 24868 megawatthours</span></span>
-<span><span class="co">#&gt; 4       Other   795 megawatthours</span></span>
-<span><span class="co">#&gt; 5 Natural gas  1551 megawatthours</span></span>
-<span><span class="co">#&gt; 6     Nuclear  2001 megawatthours</span></span></code></pre></div>
-<p><strong>Note:</strong> The <code>api_path</code> argument defines by the query of the path that following the endpoint of the API - <code>https://api.eia.gov/v2/</code>. In the example above the API full URL is:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/</span></code></pre></div>
-<p>Therefore, the query’s path is set to <code>electricity/rto/fuel-type-data/data/</code>.</p>
-<p>The <code>eia_get</code> function leverages the <a href="https://stedolan.github.io/jq/" class="external-link">jq</a> tool to parse the return JSON object from the API into CSV format and the <a href="https://CRAN.R-project.org/package=data.table" class="external-link">data.table</a> package to read and parse the object into R. By default, the function returns a <code>data.frame</code> object, but you can use the <code>format</code> argument and set the output object as <code>data.table</code>:</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RamiKrispin/EIAapi" class="external-link">EIAapi</a></span><span class="op">)</span>
+
+<span class="co"># Pulling the API key from my renviron file</span>
+<span class="va">api_key</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"eia_key"</span><span class="op">)</span>
+
+<span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eia_get.html">eia_get</a></span><span class="op">(</span>
+  api_key <span class="op">=</span> <span class="va">api_key</span>,
+  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,
+  data <span class="op">=</span> <span class="st">"value"</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span>
+<span class="co">#&gt; [1] 5000</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span>
+<span class="co">#&gt;          period respondent                       respondent-name fueltype</span>
+<span class="co">#&gt; 1 2019-09-02T06        FPC             Duke Energy Florida, Inc.      SUN</span>
+<span class="co">#&gt; 2 2019-09-03T04       PSEI              Puget Sound Energy, Inc.      WAT</span>
+<span class="co">#&gt; 3 2019-09-02T11       MIDA                          Mid-Atlantic       NG</span>
+<span class="co">#&gt; 4 2019-09-02T18         NW                             Northwest      OTH</span>
+<span class="co">#&gt; 5 2019-09-02T21       AECI Associated Electric Cooperative, Inc.       NG</span>
+<span class="co">#&gt; 6 2019-09-02T12       CENT                               Central      NUC</span>
+<span class="co">#&gt;     type-name value   value-units</span>
+<span class="co">#&gt; 1       Solar     0 megawatthours</span>
+<span class="co">#&gt; 2       Hydro   497 megawatthours</span>
+<span class="co">#&gt; 3 Natural gas 24868 megawatthours</span>
+<span class="co">#&gt; 4       Other   795 megawatthours</span>
+<span class="co">#&gt; 5 Natural gas  1551 megawatthours</span>
+<span class="co">#&gt; 6     Nuclear  2001 megawatthours</span></code></pre></div>
+<p><strong>Note:</strong> The <code>api_path</code> argument defines by
+the query of the path that following the endpoint of the API -
+<code>https://api.eia.gov/v2/</code>. In the example above the API full
+URL is:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/</span></code></pre></div>
+<p>Therefore, the query’s path is set to
+<code>electricity/rto/fuel-type-data/data/</code>.</p>
+<p>The <code>eia_get</code> function leverages the <a href="https://stedolan.github.io/jq/" class="external-link">jq</a> tool to parse the return
+JSON object from the API into CSV format and the <a href="https://CRAN.R-project.org/package=data.table" class="external-link">data.table</a>
+package to read and parse the object into R. By default, the function
+returns a <code>data.frame</code> object, but you can use the
+<code>format</code> argument and set the output object as
+<code>data.table</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eia_get.html">eia_get</a></span><span class="op">(</span></span>
-<span>  api_key <span class="op">=</span> <span class="va">api_key</span>,</span>
-<span>  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,</span>
-<span>  data <span class="op">=</span> <span class="st">"value"</span>,</span>
-<span>  format <span class="op">=</span> <span class="st">"data.table"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">df2</span></span>
-<span><span class="co">#&gt;              period respondent                         respondent-name fueltype</span></span>
-<span><span class="co">#&gt;    1: 2019-09-02T06        FPC               Duke Energy Florida, Inc.      SUN</span></span>
-<span><span class="co">#&gt;    2: 2019-09-03T04       PSEI                Puget Sound Energy, Inc.      WAT</span></span>
-<span><span class="co">#&gt;    3: 2019-09-02T11       MIDA                            Mid-Atlantic       NG</span></span>
-<span><span class="co">#&gt;    4: 2019-09-02T18         NW                               Northwest      OTH</span></span>
-<span><span class="co">#&gt;    5: 2019-09-02T21       AECI   Associated Electric Cooperative, Inc.       NG</span></span>
-<span><span class="co">#&gt;   ---                                                                          </span></span>
-<span><span class="co">#&gt; 4996: 2019-09-01T15        HST                       City of Homestead       NG</span></span>
-<span><span class="co">#&gt; 4997: 2019-09-01T18        AEC           PowerSouth Energy Cooperative      WAT</span></span>
-<span><span class="co">#&gt; 4998: 2019-09-01T17         SC South Carolina Public Service Authority       NG</span></span>
-<span><span class="co">#&gt; 4999: 2019-09-02T04       PSEI                Puget Sound Energy, Inc.      WND</span></span>
-<span><span class="co">#&gt; 5000: 2019-09-01T05        FPC               Duke Energy Florida, Inc.      OIL</span></span>
-<span><span class="co">#&gt;         type-name value   value-units</span></span>
-<span><span class="co">#&gt;    1:       Solar     0 megawatthours</span></span>
-<span><span class="co">#&gt;    2:       Hydro   497 megawatthours</span></span>
-<span><span class="co">#&gt;    3: Natural gas 24868 megawatthours</span></span>
-<span><span class="co">#&gt;    4:       Other   795 megawatthours</span></span>
-<span><span class="co">#&gt;    5: Natural gas  1551 megawatthours</span></span>
-<span><span class="co">#&gt;   ---                                </span></span>
-<span><span class="co">#&gt; 4996: Natural gas     0 megawatthours</span></span>
-<span><span class="co">#&gt; 4997:       Hydro     0 megawatthours</span></span>
-<span><span class="co">#&gt; 4998: Natural gas   780 megawatthours</span></span>
-<span><span class="co">#&gt; 4999:        Wind   239 megawatthours</span></span>
-<span><span class="co">#&gt; 5000:   Petroleum     0 megawatthours</span></span></code></pre></div>
-<p>If you wish to pull more than the <code>length</code> upper limit, you can use the <code>offset</code> to offset the query by limit and pull the next observations:</p>
+<code class="sourceCode R"><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eia_get.html">eia_get</a></span><span class="op">(</span>
+  api_key <span class="op">=</span> <span class="va">api_key</span>,
+  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,
+  data <span class="op">=</span> <span class="st">"value"</span>,
+  format <span class="op">=</span> <span class="st">"data.table"</span>
+<span class="op">)</span>
+
+<span class="va">df2</span>
+<span class="co">#&gt;              period respondent                         respondent-name fueltype</span>
+<span class="co">#&gt;    1: 2019-09-02T06        FPC               Duke Energy Florida, Inc.      SUN</span>
+<span class="co">#&gt;    2: 2019-09-03T04       PSEI                Puget Sound Energy, Inc.      WAT</span>
+<span class="co">#&gt;    3: 2019-09-02T11       MIDA                            Mid-Atlantic       NG</span>
+<span class="co">#&gt;    4: 2019-09-02T18         NW                               Northwest      OTH</span>
+<span class="co">#&gt;    5: 2019-09-02T21       AECI   Associated Electric Cooperative, Inc.       NG</span>
+<span class="co">#&gt;   ---                                                                          </span>
+<span class="co">#&gt; 4996: 2019-09-01T15        HST                       City of Homestead       NG</span>
+<span class="co">#&gt; 4997: 2019-09-01T18        AEC           PowerSouth Energy Cooperative      WAT</span>
+<span class="co">#&gt; 4998: 2019-09-01T17         SC South Carolina Public Service Authority       NG</span>
+<span class="co">#&gt; 4999: 2019-09-02T04       PSEI                Puget Sound Energy, Inc.      WND</span>
+<span class="co">#&gt; 5000: 2019-09-01T05        FPC               Duke Energy Florida, Inc.      OIL</span>
+<span class="co">#&gt;         type-name value   value-units</span>
+<span class="co">#&gt;    1:       Solar     0 megawatthours</span>
+<span class="co">#&gt;    2:       Hydro   497 megawatthours</span>
+<span class="co">#&gt;    3: Natural gas 24868 megawatthours</span>
+<span class="co">#&gt;    4:       Other   795 megawatthours</span>
+<span class="co">#&gt;    5: Natural gas  1551 megawatthours</span>
+<span class="co">#&gt;   ---                                </span>
+<span class="co">#&gt; 4996: Natural gas     0 megawatthours</span>
+<span class="co">#&gt; 4997:       Hydro     0 megawatthours</span>
+<span class="co">#&gt; 4998: Natural gas   780 megawatthours</span>
+<span class="co">#&gt; 4999:        Wind   239 megawatthours</span>
+<span class="co">#&gt; 5000:   Petroleum     0 megawatthours</span></code></pre></div>
+<p>If you wish to pull more than the <code>length</code> upper limit,
+you can use the <code>offset</code> to offset the query by limit and
+pull the next observations:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eia_get.html">eia_get</a></span><span class="op">(</span></span>
-<span>  api_key <span class="op">=</span> <span class="va">api_key</span>,</span>
-<span>  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,</span>
-<span>  data <span class="op">=</span> <span class="st">"value"</span>,</span>
-<span>  length <span class="op">=</span> <span class="fl">5000</span>,</span>
-<span>  offset <span class="op">=</span> <span class="fl">5000</span>,</span>
-<span>  format <span class="op">=</span> <span class="st">"data.table"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">df3</span></span>
-<span><span class="co">#&gt;              period respondent                                respondent-name</span></span>
-<span><span class="co">#&gt;    1: 2019-09-01T10        TAL                            City of Tallahassee</span></span>
-<span><span class="co">#&gt;    2: 2019-09-01T23         SE                                      Southeast</span></span>
-<span><span class="co">#&gt;    3: 2019-09-01T16       SWPP                           Southwest Power Pool</span></span>
-<span><span class="co">#&gt;    4: 2019-09-01T09       PSCO             Public Service Company of Colorado</span></span>
-<span><span class="co">#&gt;    5: 2019-09-01T23       CPLW                      Duke Energy Progress West</span></span>
-<span><span class="co">#&gt;   ---                                                                        </span></span>
-<span><span class="co">#&gt; 4996: 2019-09-08T13       SCEG           Dominion Energy South Carolina, Inc.</span></span>
-<span><span class="co">#&gt; 4997: 2019-09-09T02         SC        South Carolina Public Service Authority</span></span>
-<span><span class="co">#&gt; 4998: 2019-09-09T03        YAD Alcoa Power Generating, Inc. - Yadkin Division</span></span>
-<span><span class="co">#&gt; 4999: 2019-09-08T17       TIDC                    Turlock Irrigation District</span></span>
-<span><span class="co">#&gt; 5000: 2019-09-09T00         SE                                      Southeast</span></span>
-<span><span class="co">#&gt;       fueltype   type-name value   value-units</span></span>
-<span><span class="co">#&gt;    1:       NG Natural gas   277 megawatthours</span></span>
-<span><span class="co">#&gt;    2:       NG Natural gas 21452 megawatthours</span></span>
-<span><span class="co">#&gt;    3:      COL        Coal 13539 megawatthours</span></span>
-<span><span class="co">#&gt;    4:      COL        Coal  1835 megawatthours</span></span>
-<span><span class="co">#&gt;    5:      WAT       Hydro    32 megawatthours</span></span>
-<span><span class="co">#&gt;   ---                                         </span></span>
-<span><span class="co">#&gt; 4996:      WAT       Hydro    15 megawatthours</span></span>
-<span><span class="co">#&gt; 4997:      SUN       Solar     2 megawatthours</span></span>
-<span><span class="co">#&gt; 4998:      WAT       Hydro     1 megawatthours</span></span>
-<span><span class="co">#&gt; 4999:       NG Natural gas   193 megawatthours</span></span>
-<span><span class="co">#&gt; 5000:      OIL   Petroleum     0 megawatthours</span></span></code></pre></div>
-<p>You can narrow down your pull by using the <code>facets</code> argument and applying some filters. For example, in the example above, let’s filter data by the <code>fuletype</code> field and select energy source as <code>Natural gas (NG)</code> and the region as <code>United States Lower 48 (US48)</code>, and then extract the header:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"frequency"</span><span class="fu">:</span> <span class="st">"hourly"</span><span class="fu">,</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"data"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"value"</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"facets"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"respondent"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"US48"</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"fueltype"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"NG"</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="ot">]</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"start"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"end"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"sort"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">{</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"column"</span><span class="fu">:</span> <span class="st">"period"</span><span class="fu">,</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>            <span class="dt">"direction"</span><span class="fu">:</span> <span class="st">"desc"</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"offset"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"length"</span><span class="fu">:</span> <span class="dv">5000</span><span class="fu">,</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"api-version"</span><span class="fu">:</span> <span class="st">"2.0.3"</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">df3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eia_get.html">eia_get</a></span><span class="op">(</span>
+  api_key <span class="op">=</span> <span class="va">api_key</span>,
+  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,
+  data <span class="op">=</span> <span class="st">"value"</span>,
+  length <span class="op">=</span> <span class="fl">5000</span>,
+  offset <span class="op">=</span> <span class="fl">5000</span>,
+  format <span class="op">=</span> <span class="st">"data.table"</span>
+<span class="op">)</span>
+
+<span class="va">df3</span>
+<span class="co">#&gt;              period respondent                                respondent-name</span>
+<span class="co">#&gt;    1: 2019-09-01T10        TAL                            City of Tallahassee</span>
+<span class="co">#&gt;    2: 2019-09-01T23         SE                                      Southeast</span>
+<span class="co">#&gt;    3: 2019-09-01T16       SWPP                           Southwest Power Pool</span>
+<span class="co">#&gt;    4: 2019-09-01T09       PSCO             Public Service Company of Colorado</span>
+<span class="co">#&gt;    5: 2019-09-01T23       CPLW                      Duke Energy Progress West</span>
+<span class="co">#&gt;   ---                                                                        </span>
+<span class="co">#&gt; 4996: 2019-09-08T13       SCEG           Dominion Energy South Carolina, Inc.</span>
+<span class="co">#&gt; 4997: 2019-09-09T02         SC        South Carolina Public Service Authority</span>
+<span class="co">#&gt; 4998: 2019-09-09T03        YAD Alcoa Power Generating, Inc. - Yadkin Division</span>
+<span class="co">#&gt; 4999: 2019-09-08T17       TIDC                    Turlock Irrigation District</span>
+<span class="co">#&gt; 5000: 2019-09-09T00         SE                                      Southeast</span>
+<span class="co">#&gt;       fueltype   type-name value   value-units</span>
+<span class="co">#&gt;    1:       NG Natural gas   277 megawatthours</span>
+<span class="co">#&gt;    2:       NG Natural gas 21452 megawatthours</span>
+<span class="co">#&gt;    3:      COL        Coal 13539 megawatthours</span>
+<span class="co">#&gt;    4:      COL        Coal  1835 megawatthours</span>
+<span class="co">#&gt;    5:      WAT       Hydro    32 megawatthours</span>
+<span class="co">#&gt;   ---                                         </span>
+<span class="co">#&gt; 4996:      WAT       Hydro    15 megawatthours</span>
+<span class="co">#&gt; 4997:      SUN       Solar     2 megawatthours</span>
+<span class="co">#&gt; 4998:      WAT       Hydro     1 megawatthours</span>
+<span class="co">#&gt; 4999:       NG Natural gas   193 megawatthours</span>
+<span class="co">#&gt; 5000:      OIL   Petroleum     0 megawatthours</span></code></pre></div>
+<p>You can narrow down your pull by using the <code>facets</code>
+argument and applying some filters. For example, in the example above,
+let’s filter data by the <code>fuletype</code> field and select energy
+source as <code>Natural gas (NG)</code> and the region as
+<code>United States Lower 48 (US48)</code>, and then extract the
+header:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>    <span class="dt">"frequency"</span><span class="fu">:</span> <span class="st">"hourly"</span><span class="fu">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>    <span class="dt">"data"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>        <span class="st">"value"</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>    <span class="dt">"facets"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>        <span class="dt">"respondent"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>            <span class="st">"US48"</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>        <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>        <span class="dt">"fueltype"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>            <span class="st">"NG"</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>        <span class="ot">]</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>    <span class="fu">},</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    <span class="dt">"start"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>    <span class="dt">"end"</span><span class="fu">:</span> <span class="kw">null</span><span class="fu">,</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>    <span class="dt">"sort"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>        <span class="fu">{</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>            <span class="dt">"column"</span><span class="fu">:</span> <span class="st">"period"</span><span class="fu">,</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>            <span class="dt">"direction"</span><span class="fu">:</span> <span class="st">"desc"</span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>    <span class="dt">"offset"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>    <span class="dt">"length"</span><span class="fu">:</span> <span class="dv">5000</span><span class="fu">,</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a>    <span class="dt">"api-version"</span><span class="fu">:</span> <span class="st">"2.0.3"</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Updating the query with the <code>facets</code> information:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">facets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>respondent <span class="op">=</span> <span class="st">"US48"</span>, fueltype <span class="op">=</span> <span class="st">"NG"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">df4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eia_get.html">eia_get</a></span><span class="op">(</span></span>
-<span>  api_key <span class="op">=</span> <span class="va">api_key</span>,</span>
-<span>  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,</span>
-<span>  data <span class="op">=</span> <span class="st">"value"</span>,</span>
-<span>  length <span class="op">=</span> <span class="fl">5000</span>,</span>
-<span>  format <span class="op">=</span> <span class="st">"data.table"</span>,</span>
-<span>  facets <span class="op">=</span> <span class="va">facets</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">df4</span></span>
-<span><span class="co">#&gt;              period respondent        respondent-name fueltype   type-name</span></span>
-<span><span class="co">#&gt;    1: 2019-09-03T02       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;    2: 2019-09-02T08       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;    3: 2019-09-02T06       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;    4: 2019-09-03T03       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;    5: 2019-09-02T16       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;   ---                                                                     </span></span>
-<span><span class="co">#&gt; 4996: 2018-11-09T20       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt; 4997: 2018-11-09T21       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt; 4998: 2018-11-07T11       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt; 4999: 2018-11-07T12       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt; 5000: 2018-11-07T13       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;        value   value-units</span></span>
-<span><span class="co">#&gt;    1: 238622 megawatthours</span></span>
-<span><span class="co">#&gt;    2: 149180 megawatthours</span></span>
-<span><span class="co">#&gt;    3: 164671 megawatthours</span></span>
-<span><span class="co">#&gt;    4: 217190 megawatthours</span></span>
-<span><span class="co">#&gt;    5: 206225 megawatthours</span></span>
-<span><span class="co">#&gt;   ---                     </span></span>
-<span><span class="co">#&gt; 4996: 145412 megawatthours</span></span>
-<span><span class="co">#&gt; 4997: 147572 megawatthours</span></span>
-<span><span class="co">#&gt; 4998: 109269 megawatthours</span></span>
-<span><span class="co">#&gt; 4999: 123157 megawatthours</span></span>
-<span><span class="co">#&gt; 5000: 132755 megawatthours</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df4</span><span class="op">$</span><span class="va">fueltype</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "NG"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df4</span><span class="op">$</span><span class="va">respondent</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "US48"</span></span></code></pre></div>
-<p>Last but not least, you can set the starting and ending time of the query. For example, let’s set a window between June 1st and October 1st, 2022:</p>
+<code class="sourceCode R"><span class="va">facets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>respondent <span class="op">=</span> <span class="st">"US48"</span>, fueltype <span class="op">=</span> <span class="st">"NG"</span><span class="op">)</span>
+
+<span class="va">df4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eia_get.html">eia_get</a></span><span class="op">(</span>
+  api_key <span class="op">=</span> <span class="va">api_key</span>,
+  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,
+  data <span class="op">=</span> <span class="st">"value"</span>,
+  length <span class="op">=</span> <span class="fl">5000</span>,
+  format <span class="op">=</span> <span class="st">"data.table"</span>,
+  facets <span class="op">=</span> <span class="va">facets</span>
+<span class="op">)</span>
+
+<span class="va">df4</span>
+<span class="co">#&gt;              period respondent        respondent-name fueltype   type-name</span>
+<span class="co">#&gt;    1: 2019-09-03T02       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;    2: 2019-09-02T08       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;    3: 2019-09-02T06       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;    4: 2019-09-03T03       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;    5: 2019-09-02T16       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;   ---                                                                     </span>
+<span class="co">#&gt; 4996: 2018-11-09T20       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt; 4997: 2018-11-09T21       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt; 4998: 2018-11-07T11       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt; 4999: 2018-11-07T12       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt; 5000: 2018-11-07T13       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;        value   value-units</span>
+<span class="co">#&gt;    1: 238622 megawatthours</span>
+<span class="co">#&gt;    2: 149180 megawatthours</span>
+<span class="co">#&gt;    3: 164671 megawatthours</span>
+<span class="co">#&gt;    4: 217190 megawatthours</span>
+<span class="co">#&gt;    5: 206225 megawatthours</span>
+<span class="co">#&gt;   ---                     </span>
+<span class="co">#&gt; 4996: 145412 megawatthours</span>
+<span class="co">#&gt; 4997: 147572 megawatthours</span>
+<span class="co">#&gt; 4998: 109269 megawatthours</span>
+<span class="co">#&gt; 4999: 123157 megawatthours</span>
+<span class="co">#&gt; 5000: 132755 megawatthours</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df4</span><span class="op">$</span><span class="va">fueltype</span><span class="op">)</span>
+<span class="co">#&gt; [1] "NG"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df4</span><span class="op">$</span><span class="va">respondent</span><span class="op">)</span>
+<span class="co">#&gt; [1] "US48"</span></code></pre></div>
+<p>Last but not least, you can set the starting and ending time of the
+query. For example, let’s set a window between June 1st and October 1st,
+2022:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df5</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eia_get.html">eia_get</a></span><span class="op">(</span></span>
-<span>  api_key <span class="op">=</span> <span class="va">api_key</span>,</span>
-<span>  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,</span>
-<span>  data <span class="op">=</span> <span class="st">"value"</span>,</span>
-<span>  length <span class="op">=</span> <span class="fl">5000</span>,</span>
-<span>  format <span class="op">=</span> <span class="st">"data.table"</span>,</span>
-<span>  facets <span class="op">=</span> <span class="va">facets</span>,</span>
-<span>  start <span class="op">=</span> <span class="st">"2022-06-01T00"</span>,</span>
-<span>  end <span class="op">=</span> <span class="st">"2022-10-01T00"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">df5</span></span>
-<span><span class="co">#&gt;              period respondent        respondent-name fueltype   type-name</span></span>
-<span><span class="co">#&gt;    1: 2022-06-01T00       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;    2: 2022-06-01T01       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;    3: 2022-06-01T02       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;    4: 2022-06-01T03       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;    5: 2022-06-01T04       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;   ---                                                                     </span></span>
-<span><span class="co">#&gt; 2925: 2022-09-30T20       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt; 2926: 2022-09-30T21       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt; 2927: 2022-09-30T22       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt; 2928: 2022-09-30T23       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt; 2929: 2022-10-01T00       US48 United States Lower 48       NG Natural gas</span></span>
-<span><span class="co">#&gt;        value   value-units</span></span>
-<span><span class="co">#&gt;    1: 247460 megawatthours</span></span>
-<span><span class="co">#&gt;    2: 242340 megawatthours</span></span>
-<span><span class="co">#&gt;    3: 233394 megawatthours</span></span>
-<span><span class="co">#&gt;    4: 215728 megawatthours</span></span>
-<span><span class="co">#&gt;    5: 183732 megawatthours</span></span>
-<span><span class="co">#&gt;   ---                     </span></span>
-<span><span class="co">#&gt; 2925: 186416 megawatthours</span></span>
-<span><span class="co">#&gt; 2926: 190630 megawatthours</span></span>
-<span><span class="co">#&gt; 2927: 196122 megawatthours</span></span>
-<span><span class="co">#&gt; 2928: 198929 megawatthours</span></span>
-<span><span class="co">#&gt; 2929: 200809 megawatthours</span></span>
-<span></span>
-<span><span class="va">df5</span><span class="op">$</span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">df5</span><span class="op">$</span><span class="va">period</span>, start <span class="op">=</span> <span class="fl">1</span>, stop <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,<span class="st">" "</span>, </span>
-<span>                       <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">df5</span><span class="op">$</span><span class="va">period</span>, start <span class="op">=</span> <span class="fl">12</span>, stop <span class="op">=</span> <span class="fl">13</span><span class="op">)</span>, <span class="st">":00:00"</span>, </span>
-<span>                       sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">df5</span><span class="op">$</span><span class="va">time</span>, y <span class="op">=</span> <span class="va">df5</span><span class="op">$</span><span class="va">value</span>, </span>
-<span>     main <span class="op">=</span> <span class="st">"United States Lower 48 Hourly Electricity Generation by Natural Gas"</span>,</span>
-<span>     col.main <span class="op">=</span> <span class="st">"#457b9d"</span>,</span>
-<span>     col <span class="op">=</span> <span class="st">"#073b4c"</span>,</span>
-<span>     sub <span class="op">=</span> <span class="st">"Source: Form EIA-930 Product: Hourly Electric Grid Monitor"</span>,</span>
-<span>     xlab <span class="op">=</span> <span class="st">""</span>,</span>
-<span>     ylab <span class="op">=</span> <span class="st">"Megawatt Hours"</span>,</span>
-<span>     cex.main<span class="op">=</span><span class="fl">1</span>, </span>
-<span>     cex.lab<span class="op">=</span><span class="fl">1</span>, </span>
-<span>     cex.sub<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span>     frame<span class="op">=</span><span class="cn">FALSE</span>,</span>
-<span>     type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">df5</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eia_get.html">eia_get</a></span><span class="op">(</span>
+  api_key <span class="op">=</span> <span class="va">api_key</span>,
+  api_path <span class="op">=</span> <span class="st">"electricity/rto/fuel-type-data/data/"</span>,
+  data <span class="op">=</span> <span class="st">"value"</span>,
+  length <span class="op">=</span> <span class="fl">5000</span>,
+  format <span class="op">=</span> <span class="st">"data.table"</span>,
+  facets <span class="op">=</span> <span class="va">facets</span>,
+  start <span class="op">=</span> <span class="st">"2022-06-01T00"</span>,
+  end <span class="op">=</span> <span class="st">"2022-10-01T00"</span>
+<span class="op">)</span>
+
+<span class="va">df5</span>
+<span class="co">#&gt;              period respondent        respondent-name fueltype   type-name</span>
+<span class="co">#&gt;    1: 2022-06-01T00       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;    2: 2022-06-01T01       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;    3: 2022-06-01T02       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;    4: 2022-06-01T03       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;    5: 2022-06-01T04       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;   ---                                                                     </span>
+<span class="co">#&gt; 2925: 2022-09-30T20       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt; 2926: 2022-09-30T21       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt; 2927: 2022-09-30T22       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt; 2928: 2022-09-30T23       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt; 2929: 2022-10-01T00       US48 United States Lower 48       NG Natural gas</span>
+<span class="co">#&gt;        value   value-units</span>
+<span class="co">#&gt;    1: 247460 megawatthours</span>
+<span class="co">#&gt;    2: 242340 megawatthours</span>
+<span class="co">#&gt;    3: 233394 megawatthours</span>
+<span class="co">#&gt;    4: 215728 megawatthours</span>
+<span class="co">#&gt;    5: 183732 megawatthours</span>
+<span class="co">#&gt;   ---                     </span>
+<span class="co">#&gt; 2925: 186416 megawatthours</span>
+<span class="co">#&gt; 2926: 190630 megawatthours</span>
+<span class="co">#&gt; 2927: 196122 megawatthours</span>
+<span class="co">#&gt; 2928: 198929 megawatthours</span>
+<span class="co">#&gt; 2929: 200809 megawatthours</span>
+
+<span class="va">df5</span><span class="op">$</span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">df5</span><span class="op">$</span><span class="va">period</span>, start <span class="op">=</span> <span class="fl">1</span>, stop <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,<span class="st">" "</span>, 
+                       <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">df5</span><span class="op">$</span><span class="va">period</span>, start <span class="op">=</span> <span class="fl">12</span>, stop <span class="op">=</span> <span class="fl">13</span><span class="op">)</span>, <span class="st">":00:00"</span>, 
+                       sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">df5</span><span class="op">$</span><span class="va">time</span>, y <span class="op">=</span> <span class="va">df5</span><span class="op">$</span><span class="va">value</span>, 
+     main <span class="op">=</span> <span class="st">"United States Lower 48 Hourly Electricity Generation by Natural Gas"</span>,
+     col.main <span class="op">=</span> <span class="st">"#457b9d"</span>,
+     col <span class="op">=</span> <span class="st">"#073b4c"</span>,
+     sub <span class="op">=</span> <span class="st">"Source: Form EIA-930 Product: Hourly Electric Grid Monitor"</span>,
+     xlab <span class="op">=</span> <span class="st">""</span>,
+     ylab <span class="op">=</span> <span class="st">"Megawatt Hours"</span>,
+     cex.main<span class="op">=</span><span class="fl">1</span>, 
+     cex.lab<span class="op">=</span><span class="fl">1</span>, 
+     cex.sub<span class="op">=</span><span class="fl">0.8</span>,
+     frame<span class="op">=</span><span class="cn">FALSE</span>,
+     type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%"></p>
 </div>
 <div class="section level2">
@@ -440,7 +473,8 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.1.</p>
 </div>
 
       </footer>

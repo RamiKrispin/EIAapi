@@ -7,3 +7,4 @@ docs
 vignettes
 ^vignettes/*.Rmd$
 ^vignettes/images/*.png$
+^CRAN-SUBMISSION$
