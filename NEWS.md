@@ -1,3 +1,6 @@
+# EIAapi 0.1.3
+
+
 # EIAapi 0.1.2
 
 * Added a new function, `eia_backfill` to handle large data query from the API
