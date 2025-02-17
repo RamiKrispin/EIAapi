@@ -1,7 +1,7 @@
 Package: EIAapi
 Type: Package
 Title: Query Data from the 'EIA' API
-Version: 0.1.2
+Version: 0.2.0
 Authors@R: person(given = "Rami", 
                     family ="Krispin", 
                     email = "rami.krispin@gmail.com",
@@ -11,7 +11,7 @@ Description: Provides a function to query and extract data from the 'US Energy I
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.2
 Imports:
   data.table (>= 1.14.2),
   dplyr (>= 1.0.9),

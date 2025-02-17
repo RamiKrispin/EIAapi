@@ -1,3 +1,10 @@
+# EIAapi 0.2.0
+
+Bug fix:
+Fixed issue with GET requests for non-hourly data with the `eia_backfill` function:
+- Added the `frequency` and `data` arguments to aligned with the `eia_get` function arguments
+- Modified how `Date` objects are processed
+
 # EIAapi 0.1.2
 
 * Added a new function, `eia_backfill` to handle large data query from the API
