@@ -1,0 +1,16 @@
+{
+    "r.alwaysUseActiveTerminal": true,
+    "r.bracketedPaste": true,
+    "r.sessionWatcher": true,
+    "r.plot.useHttpgd": true,
+    "r.lsp.diagnostics": false,
+    "editor.formatOnSave": true,
+    "r.rterm.option": [
+        "--no-save",
+        "--no-restore",
+        "--r-binary=/usr/local/bin/R"
+    ],
+    "workbench.colorTheme": "Default High Contrast",
+    "workbench.editor.showTabs": "multiple",
+    "editor.lineNumbers": "relative"
+}
