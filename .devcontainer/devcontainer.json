@@ -1,6 +1,6 @@
 {
     "name": "EIAapi",
-    "image": "docker.io/rkrispin/user2024workshop:${localEnv:CPU}.4.4.0",
+    "image": "docker.io/rkrispin/user2024workshop:arm64.4.4.0",
     "customizations": {
         "vscode": {
             "extensions": [
