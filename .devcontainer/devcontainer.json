@@ -1,0 +1,33 @@
+{
+    "name": "EIAapi",
+    "image": "docker.io/rkrispin/user2024workshop:${localEnv:CPU}.4.4.0",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode-remote.remote-containers",
+                // R Extensions
+                "reditorsupport.r",
+                "rdebugger.r-debugger",
+                // Documentation Extensions
+                "quarto.quarto",
+                "hediet.vscode-drawio",
+                "yzhang.markdown-all-in-one",
+                "aaron-bond.better-comments",
+                // Docker Supporting Extensions
+                "ms-azuretools.vscode-docker",
+                // Python Extensions
+                "ms-python.python",
+                "ms-vscode-remote.remote-containers",
+                // Git
+                "mhutchie.git-graph",
+                // Misc
+                "streetsidesoftware.code-spell-checker",
+                "mhutchie.git-graph",
+                "vscodevim.vim"
+            ]
+        }
+    },
+    "remoteEnv": {
+        "EIA_API_KEY": "${localEnv:EIA_API_KEY}"
+    }
+}

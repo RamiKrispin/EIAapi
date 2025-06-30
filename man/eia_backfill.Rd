@@ -4,7 +4,7 @@
 \alias{eia_backfill}
 \title{Pull a Large Number of Observations with a Sequential Query}
 \usage{
-eia_backfill(start, end, offset, api_key, api_path, facets)
+eia_backfill(start, end, offset, api_key, api_path, facets, data, frequency)
 }
 \arguments{
 \item{start}{defines the start time of the series, should use a POSIXt class
@@ -24,6 +24,10 @@ The path can be found on the EIA API dashboard, for more details see https://www
 \item{facets}{A list, optional, set the filtering argument (defined as 'facets'
 on the API header), following the structure of list(facet_name_1 = value_1,
 facet_name_2 = value_2)}
+
+\item{data}{A string, the metric type, defined as 'data' on the API header}
+
+\item{frequency}{A string, the series frequency, can be one of the following - hourly, monthly, quarterly, and yearly}
 }
 \value{
 A time series
@@ -40,41 +44,52 @@ of queries.
 }
 \examples{
 \dontrun{
- start <- as.POSIXlt("2018-06-19T00", tz = "UTC")
- end <- lubridate::floor_date(Sys.time()- lubridate::days(2), unit = "day")
- attr(end, "tzone") <- "UTC"
- offset <- 2000
- api_key <- Sys.getenv("eia_key")
- api_path <- "electricity/rto/region-sub-ba-data/data/"
+start <- as.POSIXlt("2018-06-19T00", tz = "UTC")
+end <- lubridate::floor_date(Sys.time() - lubridate::days(2), unit = "day")
+attr(end, "tzone") <- "UTC"
+offset <- 2000
+api_key <- Sys.getenv("eia_key")
+api_path <- "electricity/rto/region-sub-ba-data/data/"
 
- facets = list(parent = "NYIS",
-               subba = "ZONA")
+facets <- list(
+  parent = "NYIS",
+  subba = "ZONA"
+)
 
- df <- eia_backfill(start = start,
-                end = end,
-                offset = offset,
-                api_key = api_key,
-                api_path = api_path,
-                facets = facets)
+df <- eia_backfill(
+  start = start,
+  end = end,
+  offset = offset,
+  api_key = api_key,
+  api_path = api_path,
+  facets = facets
+)
 
- at_y <- pretty(df$value)[c(2, 4, 6)]
- at_x <- seq.POSIXt(from = start,
-                  to = end,
-                  by = "2 years")
- plot(df$time, df$value,
-      col = "#1f77b4",
-      type = "l",
-      frame.plot = FALSE,
-      axes = FALSE,
-      panel.first = abline(h = at_y, col = "grey80"),
-      main = "NY Independent System Operator (West) - Hourly Generation of Electricity",
-      xlab = "Source: https://www.eia.gov/",
-      ylab = "MegaWatt/Hours")
+at_y <- pretty(df$value)[c(2, 4, 6)]
+at_x <- seq.POSIXt(
+  from = start,
+  to = end,
+  by = "2 years"
+)
+plot(df$time, df$value,
+  col = "#1f77b4",
+  type = "l",
+  frame.plot = FALSE,
+  axes = FALSE,
+  panel.first = abline(h = at_y, col = "grey80"),
+  main = "NY Independent System Operator (West) - Hourly Generation of Electricity",
+  xlab = "Source: https://www.eia.gov/",
+  ylab = "MegaWatt/Hours"
+)
 
- mtext(side =1, text = format(at_x, format = "\%Y"), at = at_x,
-       col = "grey20", line = 1, cex = 0.8)
+mtext(
+  side = 1, text = format(at_x, format = "\%Y"), at = at_x,
+  col = "grey20", line = 1, cex = 0.8
+)
 
- mtext(side =2, text = format(at_y, scientific = FALSE), at = at_y,
-       col = "grey20", line = 1, cex = 0.8)
+mtext(
+  side = 2, text = format(at_y, scientific = FALSE), at = at_y,
+  col = "grey20", line = 1, cex = 0.8
+)
 }
 }
