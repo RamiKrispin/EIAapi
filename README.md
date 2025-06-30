@@ -8,7 +8,7 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/EIAapi)](https://cran.r-project.org/package=EIAapi)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![License:
-MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit/)
+MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit)
 <!-- badges: end -->
 
 The **EIAapi** package provides functions to query and pull tidy data
@@ -54,7 +54,7 @@ A suggested workflow to query data from the EIA API with the `eia_get`
 function:
 
 -   Go to the EIA API Dashboard
-    [website](https://www.eia.gov/opendata/browser)
+    [website](https://www.eia.gov/opendata/browser/)
 -   Select the API Route and define filters
 -   Submit the query and extract the query information from the query
     metadata:
